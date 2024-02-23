@@ -1,2 +1,0 @@
-/* -- BYIMAAN -> THE FUTURE -- */
-
