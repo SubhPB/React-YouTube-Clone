@@ -9,6 +9,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import UTubeLogo from '../../src-static/images/yt-logo.png';
 import { useNavigate } from 'react-router-dom';
+import MenuYT from './MenuYT';
 
 interface Btn {
   name?: String;
@@ -31,6 +32,7 @@ interface BtnsProps {
 function HeaderYT() {
 
   const navigate = useNavigate();
+  const [renderMenu, setRenderMenu] = useState<boolean>(true);
 
   const migrate = (url: string) => {
     navigate(url);
@@ -44,10 +46,12 @@ function HeaderYT() {
   ]
 
   return (
-    <div className='yt-title realtive flex justify-between items-center'>
+    <div className='yt-title relative flex justify-between items-center'>
+        
+        { renderMenu && <MenuYT />}
 
         <div className="title-start flex gap-[2.2vmax] items-center">
-            <FiMenu className='cursor-pointer'/>
+            <FiMenu className='cursor-pointer' onClick={() => setRenderMenu(!renderMenu)}/>
             <div className='h-7 '>
               <Img source={UTubeLogo}/>
             </div> 
