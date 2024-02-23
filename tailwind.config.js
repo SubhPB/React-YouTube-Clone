@@ -20,6 +20,13 @@ module.exports = {
           height: '100%',
           width: '100%',
         },
+        // for scroll bar...
+        '.scrollbar-hide': {
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
       };
       addUtilities(newUtils, ['responsive','hover'])
     }

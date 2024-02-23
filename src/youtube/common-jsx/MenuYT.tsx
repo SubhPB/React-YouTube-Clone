@@ -5,32 +5,59 @@ import { AiFillHome } from "react-icons/ai";
 import { SiYoutubeshorts } from "react-icons/si";
 import { MdSubscriptions } from "react-icons/md";
 import { FaAngleRight } from "react-icons/fa6";
+import { menuData } from '../assists-jsx/data';
+import { useNavigate } from 'react-router-dom';
 
 
 const MenuYT: React.FC<{xtraCss?: string}> = ({xtraCss=''}) => {
-  return (
-    <div className={'absolute min-h-[92vh] min-w-[22vmax] bg-zinc-900 z-[5] top-[107%] left-[0%] '+ xtraCss}>
-        <div className="top-menu-items w-full py-2">
-            <Section >
-                <MenuItem component={<AiFillHome />} name='Home'/>
-                <MenuItem component={<SiYoutubeshorts />} name='Shorts'/>
-                <MenuItem component={<MdSubscriptions />} name='Subscription'/>
-            </Section>
+
+    const navigate = useNavigate();
+
+    const migrate = (url: string) => {
+        navigate(url);  
+    };
+
+    return (
+        <div className={'absolute h-[93.6vh] lg:h-[91vh] min-w-[22vmax] bg-zinc-900 z-[5] top-[107%] left-[0%] overflow-scroll scrollbar-hide'+ xtraCss}>
+            <div className="top-menu-items w-full py-2">
+                <Section name='General'>
+                    <MenuItem component={<AiFillHome />} name='Home'/>
+                    <MenuItem component={<SiYoutubeshorts />} name='Shorts'/>
+                    <MenuItem component={<MdSubscriptions />} name='Subscription'/>
+                </Section>
+                {
+                    menuData.map( (section, secInd) => (
+                        <Section key={secInd} name={section.sectionName}>
+                            {
+                                section.menuItems.map( (menuItem, itemInd) => (
+                                    <MenuItem key={`${menuItem.itemName}-&-${itemInd}`} component={menuItem.component} name={menuItem.itemName} handleClick={migrate} parentName={section.sectionName}/>
+                                ))
+                            }
+                        </Section>
+                    ) )
+                }
+            </div>
         </div>
-    </div>
   )
 };
 
 interface Prop {
     className ?: string, xtraCss ?: string,
-    component ?: ReactElement, name ?: string,
-    children ?: ReactNode
+    component ?: ReactElement, name ?: String | undefined,
+    children ?: ReactNode, handleClick ?: (url: string) => void,
+    parentName ?: string,
 };
 
 
-const MenuItem: React.FC<Prop> = ({className=' ', xtraCss=' ',component, name}) => {
+const MenuItem: React.FC<Prop> = ({className=' ', xtraCss=' ',component, name, handleClick= () => {}, parentName}) => {
+
+    const handleNavigation = () => {
+        
+        handleClick(`/${parentName ? parentName?.toLowerCase() + '/' + name?.toLowerCase() : name?.toLowerCase()}`)
+    }
+
     return (
-        <div className={`menu-item flex items-center gap-4 cursor-pointer  ${className} ${xtraCss}`}>
+        <div className={`menu-item flex items-center gap-4 cursor-pointer  ${className} ${xtraCss}`} onClick={handleNavigation}>
             {component}
             <p className='text-[15px] font-semibold'>{name}</p>
         </div>
