@@ -1,12 +1,12 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
+import React from 'react';
+import { CmnProps } from './Assists';
 
-import React from 'react'
-
-function FlexContainer() {
+const FlexContainer: React.FC<CmnProps> = ({className='flex w-full h-full flex-wrap flex-shrink-0 ', xtraCss='', children}) => {
   return (
-    <div>
-      
+    <div className={`flex-container ${className} ${xtraCss}`}>
+      {children}
     </div>
   )
 }

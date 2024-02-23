@@ -20,6 +20,7 @@ export const Img: React.FC<CmnProps> = ({ className=" h-full w-full auto-img ", 
     );
 };
 
+
 // export const Div: React.FC<CmnProps> = (props=defaultCmnProp) => {
 //     return (
 //         <div onClick={} className={`_div ${props.className} ${props.xtraCss}`} >

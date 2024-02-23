@@ -6,7 +6,7 @@ import AppContextProvider from './src-context/ContextApi';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const YouTube = lazy(() => import('./youtube/YouTube'));
-const SearchPage = lazy(() => import('./youtube/components-jsx/SearchPage'))
+const SearchPage = lazy(() => import('./youtube/pages-jsx/SearchPage'))
 
 function App() {
   return (
