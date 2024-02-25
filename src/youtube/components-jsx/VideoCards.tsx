@@ -42,8 +42,13 @@ const VideoDesc: React.FC<_VidCmnProp<any>> = ({className='', xtraCss='', source
       if(loading) return <_SkeletonImg className={className} xtraCss={xtraCss}/>;
 
       return (
-        // from here...
-        <></>
+        <div className={`channel-img ${className} ${xtraCss}`}> <Img source={source ?? YTlogo}/></div>
+      )
+    };
+
+    const _CardDetails: React.FC<_VidCmnProp<any>> = () => {
+      return (
+        <></> // from here to start next... 9:55 24-feb-2024
       )
     };
 
