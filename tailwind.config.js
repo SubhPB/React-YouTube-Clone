@@ -26,6 +26,15 @@ module.exports = {
           '&::-webkit-scrollbar': {
             display: 'none'
           }
+        },
+        '.scrollbar-cstm': {
+          '&::-webkit-scrollbar': {
+            width: '4px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'grey',
+            'border-radius':'15px' 
+          }
         }
       };
       addUtilities(newUtils, ['responsive','hover'])
