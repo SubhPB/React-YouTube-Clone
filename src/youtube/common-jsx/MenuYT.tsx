@@ -57,7 +57,7 @@ const MenuItem: React.FC<Prop> = ({className=' ', xtraCss=' ',component, name, h
     }
 
     return (
-        <div className={`menu-item flex items-center gap-4 cursor-pointer  ${className} ${xtraCss}`} onClick={handleNavigation}>
+        <div className={`menu-item flex items-center px-2 gap-2 py-1 cursor-pointer hover:bg-zinc-500 rounded-[20px]  ${className} ${xtraCss}`} onClick={handleNavigation}>
             {component}
             <p className='text-[15px] font-semibold'>{name}</p>
         </div>
@@ -67,7 +67,7 @@ const MenuItem: React.FC<Prop> = ({className=' ', xtraCss=' ',component, name, h
 const Section: React.FC<Prop> = ({className='', xtraCss='', children, name}) => {
 
     return (
-        <div className={`section py-2 border-b-[.75px] border-zinc-400 flex flex-col gap-[1.2vmax] ${className} ${xtraCss}`}>
+        <div className={`section pt-2 pb-4 border-b-[.75px] border-zinc-700 flex flex-col gap-[1.2vmax] ${className} ${xtraCss}`}>
             {name && (
                 <div className='section-title flex gap-2 items-center cursor-default'>
                     <h2 className='font-semibold opacity-[.9] text-xl'>{name} </h2>
