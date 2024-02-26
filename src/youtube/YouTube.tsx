@@ -9,7 +9,7 @@ import BodyYT from './common-jsx/BodyYT';
 
 function YouTube() {
   return (
-    <div className='y-tube w-[100vw] min-h-[100vh] max-h-fit pt-[0.8vmax] px-[0.8vmax] pb-[0.4vmax] bg-zinc-900 flex flex-col gap-2'>
+    <div className='y-tube w-[100vw] h-[100vh] pt-[0.8vmax] px-[0.8vmax] pb-[0.4vmax] overflow-y-hidden bg-zinc-900 flex flex-col gap-2'>
         <HeaderYT />
 
         <DividerYT>
