@@ -5,7 +5,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      
+    },
   },
   plugins: [
     function({addUtilities}){
@@ -34,7 +36,13 @@ module.exports = {
           '&::-webkit-scrollbar-thumb': {
             background: 'grey',
             'border-radius':'15px' 
-          }
+          }, 
+          '.loader-cstm': {
+            'border-radius': '50%',
+            'border-left-color': 'red',
+            // 'animation': 'App-logo-spin infinite 20s linear'
+          },
+          
         }
       };
       addUtilities(newUtils, ['responsive','hover'])
