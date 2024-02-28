@@ -21,8 +21,18 @@ const options: obj<obj<string>> = {
 export const fetchData: AsyncFunc<[string]> = async(url) => {
     // Imp: async func always returns a promise...
 
-    const {data} = await axios.get(`${BASE_URL}/${url}`, options);
-    return data;
+    try {
+
+      const {data} = await axios.get(`${BASE_URL}/${url}`, options);
+      return data;
+
+    } catch (error){
+
+      console.log("The request made on " + `'${BASE_URL}/${url}'` + " got rejected.");
+      console.log(error);
+      return Promise.reject(`${error}`);
+      
+    }
     
 };
 
