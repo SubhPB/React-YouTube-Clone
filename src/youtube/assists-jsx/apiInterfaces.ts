@@ -12,7 +12,7 @@ export interface Badge {
 export interface Author {
     avatar: Avatar[];
     badges: Badge[];
-    canonicalBaseUrl: string;
+    canonicalBaseUrl: string | null;
     channelId: string;
     title: string;
 }
@@ -35,10 +35,10 @@ export interface Thumbnail {
 
 export interface Video {
     author: Author;
-    badges: Badge[];
+    badges: string[];
     isLiveNow: boolean;
     lengthSeconds: number;
-    movingThumbnails: MovingThumbnail[];
+    movingThumbnails: MovingThumbnail[] | null;
     publishedTimeText: string;
     stats: Stats;
     thumbnails: Thumbnail[];
@@ -53,7 +53,21 @@ export interface Content {
 
 export interface ApiResponse {
     contents: Content[];
-}
+    cursorNext ?: string;
+    didYouMean ?: null | string;
+    estimatedResults ?: number;
+    filterGroups ?: FilterGroup[];
+    refinements ?: string[];
+};
 
-
+export interface FilterGroup {
+    filters: Filter[];
+    title: string;
+};
+    
+export interface Filter {
+    cursorSelect: string;
+    label: string;
+    selected: boolean;
+};
   
