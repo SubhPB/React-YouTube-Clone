@@ -8,7 +8,6 @@ const BASE_URL = "https://youtube138.p.rapidapi.com";
 
 const options: obj<obj<string>> = {
   params: {
-    q: 'desp',
     hl: 'en',
     gl: 'US'
   },
