@@ -65,3 +65,14 @@
   text-overflow: ellipsis;
   max-height: 4em; /* Adjust based on your font-size and line-height */
 }
+
+.sm-card-p-tag {
+  display: -webkit-box;
+  width: 100%;
+  flex-grow: 1;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 7em; /* Adjust based on your font-size and line-height */
+}
