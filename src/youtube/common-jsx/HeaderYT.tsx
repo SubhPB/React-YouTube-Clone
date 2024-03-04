@@ -71,14 +71,23 @@ function HeaderYT() {
 
 export const SearchBar:React.FC<{xtraCss ?: string, inputCss?: string}> = ({xtraCss =" ", inputCss="min-w-[40vw] "}) => {
 
+  const navigate = useNavigate();
   const [query, setQuery] = useState<string>('');
 
-  const handleSubmit = () => {
-    console.log(query);
+  const handleSubmit = ( ) => {
+    if (query.trim().length > 0){
+      navigate('/query/' + query.trim() );
+      setQuery('');
+    }
   };
 
   return (
     <div className={`search-bar h-full min-h-9 items-center rounded-2xl ${xtraCss}`}>
+
+      <div className='p-2 opacity-[.7]'>
+        <IoSearch onClick={handleSubmit} className='h-6 min-w-6 font-[200] '/>    
+      </div> 
+
       <input type="text" placeholder='Search'
         className={'outline-none px-2 border-stone-900 min-h-full rounded-l-xl  bg-zinc-100 ' + inputCss}
         value={query} onChange={(i) => setQuery(i.currentTarget.value)}
