@@ -1,21 +1,35 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React, {ReactNode} from "react"
+import React, {ReactNode} from "react";
+import defaultImg from '../../src-static/images/yt-logo-mobile.png';
 
-export interface CmnProps {
-    className?: String,
-    xtraCss?: String,
+export interface CmnProps<srcT> {
+    className?: string,
+    xtraCss?: string,
     children ?: ReactNode | undefined,
-    source ?: String,
-    onClick ?: Function,
+    source ?: srcT,
+    onClick?: Function,
+    loading ?: boolean,
+    callBackFunc ?: Function,
+
+    // callBackFunc for componentDidMount to be used in useEffect if needed...
+    componentDidMount ?: Function,
+
+    // callBackFunc for componentWillUnMount
+    componentWillUnMount ?: Function;
 };
 
-export const defaultCmnProp:CmnProps = {className:" ", xtraCss:" ", source: undefined, onClick: function(){}}
+export const defaultCmnProp:CmnProps<string> = {className:" ", xtraCss:" ", source: undefined, onClick: function(){}}
 
-export const Img: React.FC<CmnProps> = ({ className=" h-full w-full auto-img ", xtraCss=" ", source=undefined, onClick= () => {}}) => {
+export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto-img ", xtraCss=" ", source=undefined, onClick= () => {}}) => {
+
+    const handleImgErr = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        e.currentTarget.src = defaultImg;
+    }; 
+
     return (
         <>
-        {source && <img onClick={onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" />}
+        {source && <img onClick={onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" onError={handleImgErr} />}
         </>
     );
 };
