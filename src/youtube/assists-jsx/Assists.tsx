@@ -11,6 +11,7 @@ export interface CmnProps<srcT> {
     onClick?: Function,
     loading ?: boolean,
     callBackFunc ?: Function,
+    url ?: string,
 
     // callBackFunc for componentDidMount to be used in useEffect if needed...
     componentDidMount ?: Function,
@@ -21,11 +22,13 @@ export interface CmnProps<srcT> {
 
 export const defaultCmnProp:CmnProps<string> = {className:" ", xtraCss:" ", source: undefined, onClick: function(){}}
 
-export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto-img ", xtraCss=" ", source=undefined, onClick= () => {}}) => {
+export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto-img ", xtraCss=" ", source=undefined, onClick= () => {}, loading}) => {
 
     const handleImgErr = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         e.currentTarget.src = defaultImg;
     }; 
+
+    if (loading) return <div className={` bg-zinc-600 ${className} ${xtraCss} `}  ></div>
 
     return (
         <>
