@@ -1,28 +1,25 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React, { useEffect } from 'react';
-import { VideoCard } from '../components-jsx/VideoCards';
+import React from 'react';
 import FlexContainer from '../assists-jsx/FlexContainer';
-import demoData from '../../youtube/assists-jsx/demoData.json';
 import { ApiResponse, Content } from '../assists-jsx/apiInterfaces';
 import useFetch from '../../src-utils/useFetch';
 import { useNavigate, useParams } from 'react-router-dom';
 import MiniHeader from '../components-jsx/MiniHeader';
 import { Genres } from '../components-jsx/MiniHeader';
-import searchDemoData from '../../youtube/assists-jsx/searchDemoData.json'
+import searchDemoData from '../../youtube/assists-jsx/searchDemoData.json';
+import { VideoCardYT } from '../components-jsx/VideoCardYT.tsx/VideoCardYT';
 
 function BodyYT() {
 
   const {q} = useParams();
 
-  const _data: ApiResponse = demoData as ApiResponse;
+  const _data: ApiResponse = searchDemoData as ApiResponse;
   // const contents: Content[] | undefined = _data?.contents;
-  
   const [data, error, isLoading] = [ _data , '', false ]
 
   // const { data , error, isLoading } = useFetch<ApiResponse>( !q ? 'home/' : `search/?q=${q}`);
   
-
   if (isLoading || error || !data){
     return (
       <LoadingFlexContainer />
@@ -42,7 +39,7 @@ function BodyYT() {
       <FlexContainer>
         {
             data?.contents?.map( ( contentData, index ) => (
-                <VideoCard key={index} source={contentData?.video} loading={isLoading}/>
+              contentData?.type === 'video' && <VideoCardYT key={index} source={contentData?.video} isLoading={isLoading}/>
             ))
         }
       </FlexContainer>  
@@ -55,7 +52,7 @@ const LoadingFlexContainer: React.FC<{noOfSkeletons ?: number}> = ({noOfSkeleton
     <div className='body-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm '>
       <FlexContainer>
         {
-          Array(noOfSkeletons).fill("Byimaan").map( (val,index) => <VideoCard key={index} loading={true}/> )
+          Array(noOfSkeletons).fill("Byimaan").map( (val,index) => <VideoCardYT key={index} isLoading={true} source={null}/> )
         }
       </FlexContainer>
     </div>

@@ -21,7 +21,8 @@ export interface vidCardTS {
     children ?: ReactNode,
     source ?: Video | null ,
     isLoading ?: boolean,
-    isSmall ?: boolean
+    isSmall ?: boolean,
+    videoId ?: string
 };
 
 export type Func<Params extends any[], R=void> = (...args: Params) => R;
