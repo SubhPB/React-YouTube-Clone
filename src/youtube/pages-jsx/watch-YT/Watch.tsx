@@ -38,9 +38,21 @@ const Watch: React.FC<CmnProps<any>> = ({className='', xtraCss='', callBackFunc=
 
     // watch-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm bg-zinc-900 flex justify-between flex-col lg:flex-row
     return (
-        <div className={`watch-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm bg-zinc-900 flex justify-between flex-col lg:flex-row ${className} ${xtraCss}`}>
-            <VideoContent className='min-h-[30%] lg:h-full w-full lg:w-[65%] flex flex-col px-2' children={<PublisherData xtraCss='hidden lg:flex' source={publishData.source} isLoading={publishData.isLoading}/>}  />
-            <RelatedContent className='flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]' children={<PublisherData className=' lg:hidden' source={publishData.source} isLoading={publishData.isLoading} />}/>
+        <div className={`watch-yt flex-grow-[1] max-h-dvh overflow-y-scroll scrollbar-hide lg:scrollbar-cstm bg-zinc-900 flex justify-between flex-col lg:flex-row ${className} ${xtraCss}`}>
+            <VideoContent className='min-h-[30%] lg:h-full w-full lg:w-[65%] flex flex-col px-2'
+                videoId={videoId} 
+                children={
+                    <PublisherData xtraCss='hidden lg:flex' source={publishData.source}
+                    isLoading={publishData.isLoading} /> 
+                }
+                isLoading={publishData.isLoading}  
+            />
+            <RelatedContent className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'
+                children={
+                    <PublisherData className=' lg:hidden' source={publishData.source} isLoading={publishData.isLoading} />
+                }
+                
+              />
         </div>
     );
 };

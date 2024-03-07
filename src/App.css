@@ -80,3 +80,7 @@
 .hide-scrollbar {
   scrollbar-width: 0;
 }
+
+iframe {
+  cursor: default !important;
+}
