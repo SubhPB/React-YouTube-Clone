@@ -18,7 +18,7 @@ const MenuYT: React.FC<{xtraCss?: string}> = ({xtraCss=''}) => {
     };
 
     return (
-        <div className={'absolute h-[93.6vh] lg:h-[91vh] min-w-[22vmax] bg-zinc-900 z-[5] top-[107%] left-[0%] overflow-scroll scrollbar-hide'+ xtraCss}>
+        <div className={'absolute h-[93.6vh] lg:h-[91vh] min-w-[22vmax] bg-zinc-900 top-[107%] left-[0%] overflow-scroll scrollbar-hide z-[10]'+ xtraCss}>
             <div className="top-menu-items w-full py-2">
                 <Section name='General'>
                     <MenuItem component={<AiFillHome />} name='Home'/>
@@ -57,7 +57,7 @@ const MenuItem: React.FC<Prop> = ({className=' ', xtraCss=' ',component, name, h
     }
 
     return (
-        <div className={`menu-item flex items-center px-2 gap-2 py-1 cursor-pointer hover:bg-zinc-500 rounded-[20px]  ${className} ${xtraCss}`} onClick={handleNavigation}>
+        <div className={`menu-item flex items-center px-2 gap-2 py-1 cursor-pointer hover:bg-zinc-500 rounded-[14px]  ${className} ${xtraCss}`} onClick={handleNavigation}>
             {component}
             <p className='text-[15px] font-semibold'>{name}</p>
         </div>

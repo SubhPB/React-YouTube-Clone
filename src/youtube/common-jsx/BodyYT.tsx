@@ -39,7 +39,7 @@ function BodyYT() {
       <FlexContainer>
         {
             data?.contents?.map( ( contentData, index ) => (
-              contentData?.type === 'video' && <VideoCardYT key={index} source={contentData?.video} isLoading={isLoading}/>
+              contentData?.type === 'video' && <VideoCardYT key={index} source={contentData?.video} isLoading={isLoading} />
             ))
         }
       </FlexContainer>  
@@ -75,6 +75,6 @@ const DidYouMean: React.FC<{text ?: string | null}> = ({text=null}) => {
       <p onClick={makeNewSearch} className='font-bold text-[#0066ff8e] inline-block pl-4 cursor-pointer'> {text} </p>
     </div>
   )
-}
+};
 
 export default BodyYT
