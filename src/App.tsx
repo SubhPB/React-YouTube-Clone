@@ -20,9 +20,9 @@ function App() {
           <Routes>
 
             <Route path='/*' element={<YouTube />}/>
-            <Route path='*' element={<div> -N/A- Not found ... </div>}/>
             <Route path='/search' element={<SearchPage/>}/>
             <Route path='/loading' element={<Loading/>}/>
+            <Route path='*' element={<div> -N/A- Not found ... </div>}/>
 
           </Routes>
 
