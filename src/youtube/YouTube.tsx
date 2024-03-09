@@ -22,7 +22,7 @@ function YouTube() {
           <Routes>
             <Route path='query/:q' element={<BodyYT />} />
             <Route path='/' element={<BodyYT />}/>
-            <Route path='/watch/:videoId' element={<Watch callBackFunc={setRenderSideBar} />}/>
+            <Route path='/watch/:videoId/*' element={<Watch callBackFunc={setRenderSideBar} />}/>
             <Route path='*' element={<> -N/A- not found ...</>} />
           </Routes>
 
