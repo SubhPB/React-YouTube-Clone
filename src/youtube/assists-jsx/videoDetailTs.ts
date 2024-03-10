@@ -2,8 +2,10 @@
 
 export interface VideoDetailApiResponse {
     author: Author;
-    cards: Card[];
+    cards: Card[] | null[];
     category: string;
+    captions ?: Caption[];
+    chapters ?: any[],
     description: string;
     endScreen: EndScreen;
     isLiveContent: boolean;
@@ -44,9 +46,9 @@ export interface VideoDetailApiResponse {
   }
   
   export interface Card {
-    label: string;
+    label ?: string;
     link?: Link;
-    type: string;
+    type ?: string;
     video?: Video;
   }
   
@@ -118,4 +120,14 @@ export interface VideoDetailApiResponse {
   export interface SuperTitle {
     items: string[];
   }
+
+  export interface Caption {
+    language ?: {
+      code ?: string,
+      name ?: string
+    };
+    url ?: string
+  };
+
+  
   
