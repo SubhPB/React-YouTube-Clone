@@ -6,6 +6,7 @@ import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from 'react-router-dom';
 import VideoDetailsDemo from '../../assists-jsx/videoDetailDemo.json';
 import Paragraph from './Paragraph';
+import { Img } from '../../assists-jsx/Assists';
 
 interface vidDetailTS {
     className ?: string,
@@ -47,7 +48,13 @@ const VidDescription: React.FC<vidDetailTS>  = ({className='', xtraCss='', sourc
 
         <Paragraph source={source?.description} isLoading={isLoading}/>
 
-        
+        <div className="author-dsc w-full py-2 flex gap-2 items-center">
+            <Img className='min-h-4 min-w-4 ' source={source?.author?.avatar?.[0]?.url}/>
+            <div className="dsc-athr">
+                <p className='text-md'> {source?.author?.title} </p>
+                <p className='text-xs opacity-[.8] '>{source?.author?.stats?.subscribersText}</p>
+            </div>
+        </div>
 
     </div>
   )
