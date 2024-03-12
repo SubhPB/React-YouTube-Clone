@@ -4,12 +4,12 @@ export interface Avatar {
     width: number;
   }
   
-export   interface Badge {
+ interface Badge {
     text: string;
     type: string;
   }
   
-export   interface Author {
+export interface Author {
     avatar: Avatar[];
     badges: Badge[];
     channelId: string;
