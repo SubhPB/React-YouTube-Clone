@@ -16,14 +16,16 @@ const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src,
     const [zoom, setZoom] = useState<boolean>(false);
 
     if (isLoading){
-      <div className="cmnt-loading flex w-full py-1 gap-1">
-        <div className="h-4 w-4 rounded-full bg-zinc-700 "></div>
-        <div className="line-loads">
-          <div className="w-[85%] h-3 bg-zinc-700"></div>
-          <div className="w-[55%] h-2 bg-zinc-700 mt-1"></div>
+      return (
+        <div className="cmnt-loading flex w-full py-1 gap-1 mb-2">
+          <div className="h-6 w-6 rounded-full bg-zinc-700 "></div>
+          <div className="line-loads flex-grow-[1]">
+            <div className="w-[85%] h-5 bg-zinc-700"></div>
+            <div className="w-[60%] h-4 bg-zinc-700 mt-1"></div>
+          </div>
         </div>
-      </div>
-    }
+      );
+    };
 
     return (
       <div className='flex w-full py-1 gap-1'>
