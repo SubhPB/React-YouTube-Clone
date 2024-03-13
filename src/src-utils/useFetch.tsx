@@ -10,7 +10,9 @@ interface UseFetchProp<T> {
     isLoading: boolean,
 };
 
-export default function useFetch<T>(url: string): UseFetchProp<T> {
+
+
+export default function useFetch<T>(url: string, dependencies : any[] = []): UseFetchProp<T> {
 
     const [data, setData] = useState<T | null>(null);
     const [isLoading, setLoading] = useState<boolean>(true);
@@ -32,7 +34,7 @@ export default function useFetch<T>(url: string): UseFetchProp<T> {
             setData(null);
         };
 
-    }, [url]);
+    }, [url, ...dependencies]);
 
     return {data, error, isLoading}
 
