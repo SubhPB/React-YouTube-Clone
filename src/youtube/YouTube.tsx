@@ -7,7 +7,7 @@ import HeaderYT from './common-jsx/HeaderYT';
 import SideBar from './common-jsx/SideBar';
 import BodyYT from './common-jsx/BodyYT';
 import Watch from './pages-jsx/watch-YT/Watch'; 
-import { render } from '@testing-library/react';
+import Channel from './pages-jsx/channel-YT/Channel';
 
 function YouTube() {
 
@@ -23,6 +23,7 @@ function YouTube() {
             <Route path='query/:q' element={<BodyYT />} />
             <Route path='/' element={<BodyYT />}/>
             <Route path='/watch/:videoId/*' element={<Watch callBackFunc={setRenderSideBar} />}/>
+            <Route path='/channel/:channelId/*' element={<Channel /> } />
             <Route path='*' element={<> -N/A- not found ...</>} />
           </Routes>
 
