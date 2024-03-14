@@ -2,6 +2,7 @@
 
 import React, {ReactNode} from "react";
 import defaultImg from '../../src-static/images/yt-logo-mobile.png';
+import { useState } from "react";
 
 export interface CmnProps<srcT> {
     className?: string,
@@ -12,6 +13,7 @@ export interface CmnProps<srcT> {
     loading ?: boolean,
     callBackFunc ?: Function,
     url ?: string,
+    handleClick ?: Function,
 
     // callBackFunc for componentDidMount to be used in useEffect if needed...
     componentDidMount ?: Function,
@@ -24,24 +26,17 @@ export const defaultCmnProp:CmnProps<string> = {className:" ", xtraCss:" ", sour
 
 export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto-img ", xtraCss=" ", source=undefined, onClick= () => {}, loading}) => {
 
-    const handleImgErr = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-        e.currentTarget.src = defaultImg;
-    }; 
+    const [error, setError] = useState<boolean>(false);
 
-    if (loading) return <div className={` bg-zinc-600 ${className} ${xtraCss} `}  ></div>
+    // const handleImgErr = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    //     e.currentTarget.src = defaultImg;
+    // }; 
+
+    if (loading || error) return <div className={` bg-zinc-700 w-full h-full `}  ></div>
 
     return (
         <>
-        {source && <img onClick={onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" onError={handleImgErr} />}
+        {source && <img onClick={onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" onError={() =>setError(true)} />}
         </>
     );
 };
-
-
-// export const Div: React.FC<CmnProps> = (props=defaultCmnProp) => {
-//     return (
-//         <div onClick={} className={`_div ${props.className} ${props.xtraCss}`} >
-//             {props.children}
-//         </div>
-//     );
-// };
