@@ -6,6 +6,7 @@ import { Img } from "../../assists-jsx/Assists";
 import { _SkeletonImg } from "./VidThumbnail.";
 import { IoMdEye } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 export const VideoDesc: React.FC<vidCardTS> = ({className='', xtraCss='', children}) => {
 
@@ -41,6 +42,8 @@ export const _CardTitle: React.FC<vidCardTS> = ({className='', xtraCss='', sourc
 
 export const _CardChannelName: React.FC<vidCardTS> = ({className='', xtraCss='', source, isLoading, isSmall}) => {
 
+    const navigate = useNavigate();
+    
     if (isLoading || !source) return <div className={`load-channel-name min-h-3 bg-zinc-700 w-1/3 `}></div>
 
     const isVerified = source?.author?.badges?.[0]?.text === 'Verified';
@@ -58,11 +61,15 @@ export const _CardChannelName: React.FC<vidCardTS> = ({className='', xtraCss='',
         </div>
       )
     };
+
+    const exploreChannel = () => {
+      if (source?.author?.channelId) navigate(`/channel/${source?.author?.channelId}`)
+    };
   
     return (
       <div className={`flex ${isSmall ? 'flex-col gap-[2px]' : 'items-center gap-5'}`}>
-        <div className={`flex items-center gap-2 `}>
-          <p className={`card-channel-name text-sm opacity-[.7] card-p-tag  ${className} ${xtraCss}`} >{ source?.author?.title ?? " Test channel Name"}</p>
+        <div className={`flex items-center gap-2 cursor-pointer `} onClick={ exploreChannel }>
+          <p className={`card-channel-name text-sm opacity-[.7] card-p-tag  ${className} ${xtraCss}`} >{ source?.author?.title }</p>
           {isVerified && <FaCircleCheck className='h-4 min-w-4'/>}
         </div>
         <_Views />
