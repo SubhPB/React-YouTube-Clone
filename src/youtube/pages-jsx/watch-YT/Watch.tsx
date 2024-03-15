@@ -9,7 +9,7 @@ import PublisherData from './PublisherData';
 import demoVideoDetail from '../../assists-jsx/videoDetailDemo.json';
 import { VideoDetailApiResponse } from '../../assists-jsx/videoDetailTs';
 import { Routes, Route } from 'react-router-dom';
-import useFetch from '../../../src-utils/useFetch';
+import CommentsYT from '../comments-YT/Comments';
 import VidDescription from '../Description-YT/VidDescription';
 
 interface PublishTS {
@@ -52,13 +52,14 @@ const Watch: React.FC<CmnProps<any>> = ({className='', xtraCss='', callBackFunc=
  
             <Routes>
 
-                <Route path='comments/*' element={ <div className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'> Comments Section </div> }/>
+                <Route path='comments/*' element={ <CommentsYT /> }/>
                 <Route path={'description/'} element={  <VidDescription className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'/> }/>
                 <Route path='*' element={ 
                     <RelatedContent className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'>
                         <PublisherData className=' lg:hidden' source={publishData.data} isLoading={publishData.isLoading} /> 
                     </RelatedContent>
                 }/>
+
 
             </Routes>
   
