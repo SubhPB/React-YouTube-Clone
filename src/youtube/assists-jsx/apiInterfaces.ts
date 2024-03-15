@@ -1,3 +1,5 @@
+
+
 export interface Avatar {
     height: number;
     url: string;
@@ -10,11 +12,11 @@ export interface Badge {
 }
 
 export interface Author {
-    avatar: Avatar[];
-    badges: Badge[];
-    canonicalBaseUrl: string | null;
-    channelId: string;
-    title: string;
+    avatar?: Avatar[];
+    badges?: Badge[];
+    canonicalBaseUrl?: string | null;
+    channelId?: string;
+    title?: string;
 }
 
 export interface MovingThumbnail {
@@ -34,12 +36,12 @@ export interface Thumbnail {
 }
 
 export interface Video {
-    author: Author;
-    badges: string[];
+    author?: Author;
+    badges?: string[];
     isLiveNow: boolean;
-    lengthSeconds: number;
-    movingThumbnails: MovingThumbnail[] | null;
-    publishedTimeText: string;
+    lengthSeconds?: number;
+    movingThumbnails?: MovingThumbnail[] | null;
+    publishedTimeText?: string;
     stats: Stats;
     thumbnails: Thumbnail[];
     title: string;
