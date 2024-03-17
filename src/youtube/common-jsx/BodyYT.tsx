@@ -47,7 +47,7 @@ function BodyYT() {
   )
 };
 
-const LoadingFlexContainer: React.FC<{noOfSkeletons ?: number}> = ({noOfSkeletons=12}) => {
+export const LoadingFlexContainer: React.FC<{noOfSkeletons ?: number}> = ({noOfSkeletons=12}) => {
   return (
     <div className='body-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm '>
       <FlexContainer>
