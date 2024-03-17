@@ -1,54 +1,82 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React from 'react'
+import React, {UIEventHandler, useEffect, useRef, useState} from 'react'
 import { CmnProps } from '../../assists-jsx/Assists';
-import { Video } from '../../assists-jsx/apiInterfaces';
-import { _Thumbnail } from '../../components-jsx/VideoCards';
-import { VideoDesc } from '../../components-jsx/VideoCards';
 import FlexContainer from '../../assists-jsx/FlexContainer';
 import { ApiResponse } from '../../assists-jsx/apiInterfaces';
 import searchDemoData from '../../../youtube/assists-jsx/searchDemoData.json'
+import { VideoCardYT } from '../../components-jsx/VideoCardYT.tsx/VideoCardYT';
+// import PublisherData from './PublisherData';
 
-const RelatedContent : React.FC<CmnProps<any>> = ({className='', xtraCss=''}) => {
+interface State{
+    incOffsetTop : number,
+    reference: HTMLElement |null,
+    commentDiv: HTMLElement | null,
+};
+const defaultState = { incOffsetTop: Infinity, reference: null, commentDiv: null };
+
+const RelatedContent : React.FC<CmnProps<any>> = ({className='', xtraCss='', children}) => {
 
     const _data: ApiResponse = searchDemoData as ApiResponse;
-    // const contents: Content[] | undefined = _data?.contents;
-    const [data, error, isLoading] = [ _data , '', false ]
+    const [data, error, isLoading] = [ _data , '', false ];
+    const [ state , setState] = useState<State>(defaultState);
+    const parentRef = useRef<HTMLDivElement>(null);
 
-    const flexContainerDidMount = (DIV:HTMLDivElement) => {
-        DIV.querySelectorAll('.channel-img').forEach( div => {
-            if (div instanceof HTMLElement) {
-                div.style.display = 'none';
+    useEffect( function didMount(){ 
+        const reference = parentRef?.current as HTMLElement;
+        const commentDiv = reference?.querySelector('.vid-comments') as HTMLElement;
+        if (reference && commentDiv){
+             setState({
+                ...state,
+                incOffsetTop: commentDiv.offsetTop - reference.offsetTop,
+                reference: reference,
+                commentDiv: commentDiv
+             }); 
+        };
+        
+    }, [] )
+
+    useEffect( function didUpdate(){
+        
+        const { incOffsetTop, reference, commentDiv } = state;
+
+        const handleScroll = () => {
+            // const childInclusiveOffsetTop = commentDiv?.offsetTop - reference?.offsetTop;
+            if (incOffsetTop && reference && commentDiv){
+                const triggerEvent = state.incOffsetTop <= reference.scrollTop + 2;
+                if (triggerEvent && !Array.from(commentDiv.classList).includes('fixed')){
+                    commentDiv.classList.add('fixed');
+                };
+
+                if (!triggerEvent && Array.from(commentDiv.classList).includes('fixed')){
+                    commentDiv.classList.remove('fixed');
+                };
             }
-        });
-    };
+        };
 
-    const flexContainerWillUnMount = (DIV:HTMLDivElement) => {
-        DIV.querySelectorAll('.channel-img').forEach( div => {
-            if (div instanceof HTMLElement) {
-                div.style.display = 'block';
+        if (incOffsetTop && reference && commentDiv){
+            reference.addEventListener('scroll',handleScroll)
+        };
+
+        return function willUnMount(){
+            if (incOffsetTop && reference && commentDiv){
+                commentDiv.classList.remove('fixed');
+                reference.removeEventListener('scroll', handleScroll)
+            };
+        };
+    }, [state.incOffsetTop]);
+    
+
+    return (
+        <div ref={parentRef} className={`related-content ${className} ${xtraCss}`}>
+            {children}
+            <FlexContainer>
+            {
+                data?.contents?.map( ( contentData, index ) => (
+                    contentData?.type === 'video' && <VideoCardYT key={index} source={contentData?.video} isLoading={isLoading} isSmall={true}/>
+                ))
             }
-        });
-    };
-  
-    return (
-        <div className={`related-content bg-slate-500 ${className} ${xtraCss}`}>
-        <FlexContainer componentDidMount={flexContainerDidMount} componentWillUnMount={flexContainerDidMount}>
-        {
-            data?.contents?.map( ( contentData, index ) => (
-                <SmallVideoCard key={index} source={contentData?.video} loading={isLoading}/>
-            ))
-        }
-        </FlexContainer>
-        </div>
-    )
-};
-
-const SmallVideoCard: React.FC<CmnProps<Video>> = ({className='', xtraCss='', source, loading=true}) => {
-    return (
-        <div className={`sm-vid-card min-h-[25vh] w-full my-1 cursor-default flex justify-between ${className} ${xtraCss}`}>
-            <_Thumbnail className='h-[23vh] w-[42vh] mr-1' xtraCss='' source={source} loading={loading}/>
-            <VideoDesc className='flex-grow-[1]' xtraCss='' source={source} loading={loading} />
+            </FlexContainer>
         </div>
     )
 };

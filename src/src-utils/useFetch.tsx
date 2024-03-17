@@ -1,6 +1,4 @@
 /* -- BYIMAAN -> THE FUTURE -- */
-
-import { obj } from "./dataTypes";
 import { useEffect, useState } from "react";
 import { fetchData } from "./api";
 
