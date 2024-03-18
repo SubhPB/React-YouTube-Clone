@@ -2,7 +2,7 @@
 
 import React from "react";
 import { vidCardTS } from "../../../src-utils/dataTypes";
-import { _Thumbnail } from "./VidThumbnail.";
+import { _Thumbnail } from "./VidThumbnail";
 import { VideoDesc } from "./VideoDescription";
 import { _ChannelImg } from "./VideoDescription";
 import { _CardDetails } from "./VideoDescription";
