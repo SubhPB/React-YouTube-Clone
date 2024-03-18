@@ -3,11 +3,13 @@
 import React from 'react'
 import { ChnlProp } from '../ChannelTS';
 
-export const ChannelSearch:React.FC<ChnlProp<any>> = ({className='', xtraCss=''}) => {
+const ChannelSearch:React.FC<ChnlProp<any>> = ({className='', xtraCss=''}) => {
 
     return (
         <div className="">
-            This is the Playlist URL...
+            This is the search URL...
         </div>
     )
-}
+};
+
+export default ChannelSearch;
