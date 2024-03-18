@@ -9,10 +9,11 @@ interface ParaTS {
     children ?: React.ReactNode,
     source ?: string | null ,
     isLoading ?: boolean,
-    isSmall ?: boolean
+    isSmall ?: boolean,
+    textSize ?: string,
 };
 
-function Paragraph({className='', xtraCss='', source, isLoading}: ParaTS) {
+function Paragraph({className='', xtraCss=' sm-card-p-tag', source, isLoading, textSize='text-sm'}: ParaTS) {
 
     const [zoom, setZoom] = useState(false);
 
@@ -23,10 +24,10 @@ function Paragraph({className='', xtraCss='', source, isLoading}: ParaTS) {
     const PLines = source?.split('\n').map( (line:string, index: number) => <div key={index} className=''>{line}</div>)
 
     return (
-        <div onClick={ () => setZoom(!zoom) } className={`dsc-para w-full p-2 bg-zinc-800 rounded-[12px] ${className} ${xtraCss}`}>
-            <p className={`text-sm ${zoom && ' sm-card-p-tag'}`}>{PLines}</p>
+        <div onClick={ () => setZoom(!zoom) } className={`dsc-para w-full p-2 bg-zinc-800 rounded-[12px] ${className}`}>
+            <p className={`${textSize} ${ !zoom && xtraCss }`}>{PLines}</p>
         </div>
-    )
+    );
 }
 
 export default Paragraph;
