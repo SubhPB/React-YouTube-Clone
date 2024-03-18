@@ -16,13 +16,13 @@ export const _SkeletonImg: React.FC<vidCardTS> = ({className='', xtraCss=''}) =>
 const videoDuration = (timeInSeconds: number = 0): string => {
   
     // Use moment.duration to create a duration object from seconds
-    const duration = moment.duration(timeInSeconds, 'seconds');
+    const duration = moment?.duration(timeInSeconds, 'seconds');
   
-    const hours = Math.floor(duration.asHours());
+    const hours = Math.floor(duration?.asHours());
     // Format the duration as "hours:minutes:seconds"
-    const formattedTime = (hours === 0 ? '' : `${hours}:`) + moment.utc(duration.asMilliseconds()).format("mm:ss");
+    const formattedTime = (hours === 0 ? '' : `${hours}:`) + moment?.utc(duration?.asMilliseconds())?.format("mm:ss");
   
-    return formattedTime;
+    return formattedTime ?? 'N/A';
   };
 
 export const _Thumbnail: React.FC<vidCardTS> = ({className='', xtraCss='', source, isLoading}) => {
