@@ -3,7 +3,7 @@
 import React from "react";
 import { vidCardTS } from "../../../src-utils/dataTypes";
 import { Img } from "../../assists-jsx/Assists";
-import { _SkeletonImg } from "./VidThumbnail.";
+import { _SkeletonImg } from "./VidThumbnail";
 import { IoMdEye } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
