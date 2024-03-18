@@ -1,13 +1,21 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Img } from '../../assists-jsx/Assists';
-import YTlogo from '../../../src-static/images/yt-logo-mobile.png';
 import { MdInsertComment } from "react-icons/md";
 import { Genres } from '../../components-jsx/MiniHeader';
 import { VideoDetailApiResponse } from '../../assists-jsx/videoDetailTs';
-import { videoButtons } from './VideoButtons';
+//import { videoButtons } from './VideoButtons';
+import { VideoBtn, videoBtnTS } from './VideoButtons';
 import { SiRedux } from "react-icons/si";
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
+import { FaRegShareSquare } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa6";
+import { FaReact } from "react-icons/fa";
+import { AiFillLike } from "react-icons/ai";
+import { BiSolidDislike } from "react-icons/bi";
 
 // this component will be reponsible for video comments, publishing info. , other functionalities...
 
@@ -17,7 +25,9 @@ interface vidDetailTS {
     children ?: ReactNode,
     source ?: VideoDetailApiResponse | null ,
     isLoading ?: boolean,
-    isSmall ?: boolean
+    isSmall ?: boolean,
+    callBack ?: Function;
+    onClick ?: Function;
 };
 
 
@@ -47,37 +57,60 @@ function _VideoTitle({className='', xtraCss='', source, isLoading}: vidDetailTS)
 
 function DetailedVideoInfo({className='', xtraCss, source, isLoading} : vidDetailTS): React.ReactElement {
 
-    if (isLoading) return <div className={`load-detail-v-info bg-zinc-600 min-h-[8vmin] w-[80%]`}/>
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {videoId} = useParams();
+
+    if (isLoading) return <div className={`load-detail-v-info bg-zinc-600 min-h-[8vmin] w-[80%]`}/>;
+
+    const handleNavigation = (destinationUrl: string) => {
+        console.log(location.pathname);
+
+        if (!(location.pathname === destinationUrl || location.pathname === destinationUrl+'/')){
+            navigate(destinationUrl);
+        };
+    };
 
     return (
-        <div className={`detailed-vid-info bg-zinc-600 rounded-xl p-2 text-xs ${className} ${xtraCss} `}>
+        <div className={`detailed-vid-info bg-zinc-800 rounded-xl p-2 text-xs cursor-pointer ${className} ${xtraCss} `} onClick={ () => handleNavigation(`/watch/${videoId}/description/`) }>
             <p className='card-p-tag text-xs opacity-[.9]'> {source?.description ?? '' } </p>
+            <p className='w-full pr-2 text-xs text-right pt-1 font-bold ' > READ MORE... </p>
         </div>
-    )
+    );
 };
 
 function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} : vidDetailTS): React.ReactElement {
 
+    const navigate = useNavigate();
     function PChannelAndSubscribe1(){
 
-        function P({className='', xtraCss='', children}: vidDetailTS){
+        const [subscribed, setSubscribed] = useState<boolean>(false);
+
+        function P({className='', xtraCss='',onClick= () => {}, children}: vidDetailTS){
             if (isLoading) return <p className={"load-p-chnl-subs min-h-6 mx-2 min-w-10 bg-zinc-600 rounded-2xl"} />
             
-            return <p className={`cstm-p-chnl-sub ${className} ${xtraCss}`}> {children} </p>
+            return <p onClick={ () => onClick() } className={`cstm-p-chnl-sub ${className} ${xtraCss}`}> {children} </p>
         };
 
         function SubscribeBtn(){
             if (isLoading) return <div className="load-sub-btn p-4 min-h-9 min-w-20 rounded-[11px] bg-zinc-600"></div>
             return (
-                <div className="subcribe-btn py-[4.5px] px-[7px] bg-zinc-100 cursor-pointer rounded-[24px]"> <P className='text-zinc-800 text-sm font-semibold'> Subscribe </P> </div>
+                <div onClick={() => {setSubscribed( !subscribed )} } className="subcribe-btn py-[4.5px] px-[7px] bg-zinc-100 cursor-pointer rounded-[24px]">
+                    <P className='text-zinc-800 text-sm font-semibold'> {subscribed ? 'Subscribed': 'Subscribe'} </P> 
+                </div>
             )
         };
 
         return (
             <div className="channel-and-subcribe flex gap-2 w-full lg:w-[36%] justify-between items-center cursor-default">
                 <div className='flex items-center'>
-                    <Img className='min-h-10 min-w-10 max-w-10 rounded-full overflow-hidden' source={ source?.thumbnails?.[4]?.url ?? ''} loading={isLoading}/>
-                    <P className='chl-name font-bold ml-1 mr-2 cursor-pointer'> {source?.author?.title ?? ''} </P>
+                    <Img className='min-h-10 min-w-10 max-w-10 rounded-full overflow-hidden'
+                      source={ source?.thumbnails?.[4]?.url ?? ''}
+                      loading={isLoading}
+                    />
+                    <P className='chl-name font-bold ml-1 mr-2 cursor-pointer' onClick={ () => navigate(`/channel/${source?.author?.channelId}/`)} >
+                         {source?.author?.title ?? ''} 
+                    </P>
                     <P className='how-many-subs opacity-[.7] text-xs '> { source?.author?.stats?.subscribersText ?? ''} </P>
                 </div>
                 <SubscribeBtn />
@@ -87,6 +120,17 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
 
     function PVideoBtns(){
 
+        const NEUTRAL = "NEUTRAL", LIKED = "LIKED", DISLIKED = "DISLIKED"
+        const [state, setState] = useState<"NEUTRAL" | "LIKED" | "DISLIKED">(NEUTRAL);
+        
+        const videoBtns: videoBtnTS[] = [
+            {text: '', icon: state === LIKED ? <AiFillLike /> :<AiOutlineLike />, onClick: () => setState(state => state === LIKED ? NEUTRAL : LIKED)},
+            {text: '', icon: state === DISLIKED ? <BiSolidDislike /> :<AiOutlineDislike />, onClick: () => setState(state => state === DISLIKED ? NEUTRAL : DISLIKED)},
+            {text: 'Share', icon: <FaRegShareSquare />},
+            {text: 'Download', icon: <FaDownload />},
+            {text: 'Byimaan', icon: <FaReact /> }
+        ];
+        const videoButtons: React.ReactElement[] = videoBtns.map( (data: videoBtnTS, index: number) => <VideoBtn key={index} text={data?.text} icon={data?.icon} onClick={data?.onClick} /> );
         return (
             <div className="pub-btns min-h-4 w-full lg:w-[62%]">
                 <Genres className='flex p-2 gap-2 flex-shrink-0 w-full overflow-x-scroll scrollbar-hide'
@@ -107,10 +151,21 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
 
 function VideoComments({className='', xtraCss='', isLoading, source}: vidDetailTS): React.ReactElement {
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {videoId} = useParams(); 
+
     if (isLoading) return <div className="load-vid-comments min-h-[5vh] mb-2 w-[60%] bg-zinc-600 "></div>
 
+    const handleNavigation = (destinationUrl: string) => {
+
+        if (!(location.pathname === destinationUrl || location.pathname === destinationUrl+'/')){
+            navigate(destinationUrl);
+        };
+    };
+
     return (
-        <div className={`vid-comments min-h-[6] w-full rounded-2xl bg-zinc-700 p-2 cursor-pointer ${className} ${xtraCss} `}>
+        <div className={`vid-comments min-h-[6] w-full rounded-2xl bg-zinc-800 p-2 cursor-pointer z-[4] ${className} ${xtraCss} `} onClick={() => handleNavigation(`/watch/${videoId}/comments`)}>
             <span className='text-white opacity-[.9] text-sm flex items-center gap-2'> Comments <span className='ml-3'><MdInsertComment/></span>  <span className='opacity-[.8] '> {source?.stats?.comments ?? ''} </span> </span>
             <VideoComment isLoading={isLoading}/>
         </div>
@@ -118,6 +173,7 @@ function VideoComments({className='', xtraCss='', isLoading, source}: vidDetailT
 };
 
 function VideoComment({className='', xtraCss='', isLoading, source}: vidDetailTS): React.ReactElement {
+
 
     if (isLoading) return (
         <div className={`load-vid-comment w-full min-h-5 flex justify-around items-center mt-2 ${className} ${xtraCss}`}>
