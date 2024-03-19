@@ -25,7 +25,7 @@ function Paragraph({className='', xtraCss=' sm-card-p-tag', source, isLoading, t
 
     return (
         <div onClick={ () => setZoom(!zoom) } className={`dsc-para w-full p-2 bg-zinc-800 rounded-[12px] ${className}`}>
-            <p className={`${textSize} ${ !zoom && xtraCss }`}>{PLines}</p>
+            <p className={` cursor-default ${textSize} ${ !zoom && xtraCss }`}>{PLines}</p>
         </div>
     );
 }
