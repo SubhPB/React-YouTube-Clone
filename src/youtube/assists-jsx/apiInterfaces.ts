@@ -38,9 +38,10 @@ export interface Thumbnail {
 export interface Video {
     author?: Author;
     badges?: string[];
-    isLiveNow: boolean;
+    isLiveNow?: boolean;
     lengthSeconds?: number;
     movingThumbnails?: MovingThumbnail[] | null;
+    descriptionSnippet ?: string;
     publishedTimeText?: string;
     stats: Stats;
     thumbnails: Thumbnail[];
