@@ -17,14 +17,14 @@ export const intToText = ( int: number ) : string  => {
     };
 
     if (int > 999){
-        const keys = Object.keys(obj);
-        const size = `${int}`.split('').length;
+        const keys = Object.keys(obj).map(Number).sort( (a,b) => b-a );
+        const size = `${int}`.length;
         for (let key of keys){
-            if (size > Number(key)) {
-                const result = int / obj[Number(key)].total
-                return `${parseFloat(result.toFixed(2))} ${obj[Number(key)].sym}`
+            if (size >= Number(key)) {
+                const result = int / obj[key].total
+                return `${parseFloat(result.toFixed(2))} ${obj[key].sym}`
             };
-            
+
         };
     };
     return ''+int;

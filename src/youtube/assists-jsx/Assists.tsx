@@ -32,7 +32,7 @@ export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto
     //     e.currentTarget.src = defaultImg;
     // }; 
 
-    if (loading || error) return <div className={` bg-zinc-700 w-full h-full `}  ></div>
+    if (loading || error) return <div className={` bg-zinc-700 w-full h-full ${xtraCss}`}  ></div>
 
     return (
         <>
