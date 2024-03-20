@@ -30,9 +30,12 @@ function BodyYT() {
   return (
     <div className='body-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm '>
 
-      {<MiniHeader>
-        <Genres source={ data?.refinements} url={'/query/'}/>
-      </MiniHeader>  }
+      { 
+        data?.refinements && (
+        <MiniHeader>
+          <Genres source={ data?.refinements} url={'/query/'}/>
+        </MiniHeader> )
+      }
 
       { (q !== 'home' && data?.didYouMean ) && <DidYouMean text={data?.didYouMean ?? null} />}
 
