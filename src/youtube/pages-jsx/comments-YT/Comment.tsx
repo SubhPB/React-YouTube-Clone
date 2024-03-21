@@ -9,6 +9,7 @@ import { AiOutlineDislike } from "react-icons/ai";
 import { MdOutlineChat } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from 'react-icons/ai';
+import { intToText } from '../../assists-jsx/funcs';
 
 
 const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src, isLoading }) => {
@@ -30,7 +31,7 @@ const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src,
     return (
       <div className='flex w-full py-1 gap-1'>
 
-        <Img className='h-6 max-w-6 min-w-6 rounded-full' source={src?.author?.avatar?.[0]?.url}/>
+        <Img xtraCss='min-h-6 max-h-6 max-w-6 min-w-6 rounded-full' source={src?.author?.avatar?.[0]?.url}/>
 
         <div className="cmnt-body flex-grow-[1] min-h-4 ">
           <div className="cmnt-header text-nowrap text-xs max-w-full cursor-pointer opacity-[.8]">
@@ -45,7 +46,7 @@ const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src,
           <div className="cmnt-stats mt-2 w-full flex gap-3 items-center">
             <div className="cmnt-like flex text-xs items-center cursor-pointer">
               <AiFillLike />
-              <p className='text-[.6rem] font-semibold'>{src?.stats?.votes}</p>
+              <p className='text-[.6rem] font-semibold'>{intToText(Number(src?.stats?.votes))}</p>
             </div>
 
             <AiOutlineDislike className=' cursor-pointer'/>
@@ -53,7 +54,7 @@ const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src,
           </div>
 
           <div className="replies text-sm font-semibold text-blue-700 mb-2 cursor-pointer">
-            <span>{src?.stats?.replies}</span>
+            <span>{intToText(Number(src?.stats?.replies))}</span>
             <span> Replies </span>
           </div>
         </div>
