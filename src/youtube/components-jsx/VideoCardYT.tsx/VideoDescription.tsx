@@ -7,6 +7,7 @@ import { _SkeletonImg } from "./VidThumbnail";
 import { IoMdEye } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { intToText } from "../../assists-jsx/funcs";
 
 export const VideoDesc: React.FC<vidCardTS> = ({className='', xtraCss='', children}) => {
 
@@ -34,7 +35,7 @@ export const _CardDetails: React.FC<vidCardTS> = ({className='', xtraCss='', chi
 
 export const _CardTitle: React.FC<vidCardTS> = ({className='', xtraCss='', source, isLoading}) => {
 
-    if (isLoading || !source) return <div className={`load-title min-h-4 bg-zinc-700 w-full`}></div>;
+    if (isLoading || !source) return <div className={`load-title min-h-4 bg-zinc-700 w-[65%] ${xtraCss}` } ></div>;
     return (
       <p className={`card-title ${className} ${xtraCss}`} >{ source?.title  ?? ''}</p>
     )
@@ -44,7 +45,7 @@ export const _CardChannelName: React.FC<vidCardTS> = ({className='', xtraCss='',
 
     const navigate = useNavigate();
     
-    if (isLoading || !source) return <div className={`load-channel-name min-h-3 bg-zinc-700 w-1/3 `}></div>
+    if (isLoading || !source) return <div className={`load-channel-name min-h-3 bg-zinc-700 w-1/3 ${xtraCss}`}></div>
 
     const isVerified = source?.author?.badges?.[0]?.text === 'Verified';
   
@@ -57,7 +58,7 @@ export const _CardChannelName: React.FC<vidCardTS> = ({className='', xtraCss='',
       return (
         <div className={`video-views ${className} ${xtraCss}`}>
           <IoMdEye className='h-4 min-w-4'/>
-          <p className='text-xs'>{source?.stats?.views}</p>  
+          <p className='text-xs'>{intToText(source?.stats?.views)}</p>  
         </div>
       )
     };
