@@ -29,7 +29,7 @@ export const VideoCardYT: React.FC<vidCardTS> = ({className='', xtraCss='', sour
 
                 <_CardDetails  className={ isSmall ? ifSmallSize.cardDetailsCss : 'flex flex-col gap-2 justify-center w-[calc(100%-3rem)]'} source={source} isLoading={isLoading}>
                     <_CardTitle className={`text-sm ${isSmall ? 'sm-card-p-tag' :'card-p-tag'}`} isLoading={isLoading} source={source} />
-                    <_CardChannelName isLoading={isLoading} source={source} isSmall={isSmall}/>
+                    <_CardChannelName  isLoading={isLoading} source={source} isSmall={isSmall}/>
                 </_CardDetails>
 
             </VideoDesc>
