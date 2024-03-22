@@ -2,6 +2,8 @@
 
 import { combineReducers } from "redux";
 
-export const rootReducer = combineReducers({
-
+const rootReducer = combineReducers({
+    api: {}
 });
+
+export default rootReducer;
