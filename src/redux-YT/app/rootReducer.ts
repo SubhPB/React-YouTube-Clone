@@ -1,9 +1,10 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
 import { combineReducers } from "redux";
+import HomeReducer from "../features/home/homeActions";
 
 const rootReducer = combineReducers({
-    api: {}
+    home : HomeReducer
 });
 
 export default rootReducer;
