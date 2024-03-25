@@ -1,25 +1,40 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import FlexContainer from '../assists-jsx/FlexContainer';
-import { ApiResponse, Content } from '../assists-jsx/apiInterfaces';
-import useFetch from '../../src-utils/useFetch';
+import { ApiResponse } from '../assists-jsx/apiInterfaces';
 import { useNavigate, useParams } from 'react-router-dom';
 import MiniHeader from '../components-jsx/MiniHeader';
 import { Genres } from '../components-jsx/MiniHeader';
 import searchDemoData from '../../youtube/assists-jsx/searchDemoData.json';
 import { VideoCardYT } from '../components-jsx/VideoCardYT.tsx/VideoCardYT';
+import { homeStateSelector } from '../../redux-YT/features/home/homeSelectors';
+import { fetchHomeDataAction } from '../../redux-YT/features/home/homeSliceActions';
+import { useAppDispatch } from '../../redux-YT/app/store';
+import { useSelector } from 'react-redux';
 
 function BodyYT() {
 
   const {q} = useParams();
-
+  
   const _data: ApiResponse = searchDemoData as ApiResponse;
-  // const contents: Content[] | undefined = _data?.contents;
   const [data, error, isLoading] = [ _data , '', false ]
 
+  // 
   // const { data , error, isLoading } = useFetch<ApiResponse>( !q ? 'home/' : `search/?q=${q}`);
   
+  /*  --- Redux + Thunk --- 
+  const appDispatch = useAppDispatch();
+  const { data, error, isLoading } = useSelector( homeStateSelector );
+
+  useEffect( function mount(){
+    
+    console.log(' BODY-YT: useEffect Activated! ')
+    appDispatch(fetchHomeDataAction( { query : q } ));
+
+  }, [appDispatch, q])
+  */
+
   if (isLoading || error || !data){
     return (
       <LoadingFlexContainer />
