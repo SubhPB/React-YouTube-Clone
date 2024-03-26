@@ -1,14 +1,17 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { RxCross1 } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
 import CommentsDemoData from '../../assists-jsx/commentDemo.json';
 import CommentYT from './Comment';
-import useFetch from '../../../src-utils/useFetch';
 import { CommentsSection } from '../../assists-jsx/vidComments';
-import { useMemo } from 'react';
 
+import { useAppDispatch } from '../../../redux-YT/app/store';
+import { useSelector } from 'react-redux';
+import { videoCommentsSelector } from '../../../redux-YT/features/video/comments/commentsSelectors';
+import { fetchCVideoCommentsAction } from '../../../redux-YT/features/video/comments/commentsActions';
+// Ss
 
 export interface CommentTS <C> {
     className ?: string,
@@ -23,11 +26,15 @@ const CommentsYT:React.FC<CommentTS<CommentsSection>> = ( { className='', xtraCs
 
     const navigate = useNavigate();
     const {videoId} = useParams();
-    const data = CommentsDemoData as CommentsSection;
-    const isLoading = false;
+    // const data = CommentsDemoData as CommentsSection;
+    // const isLoading = false;
 
-    //const { data, error, isLoading } = useFetch<CommentsSection>(`video/comments/?id=${videoId}`, [videoId] );
-
+    const { data, error, isLoading } = useSelector( videoCommentsSelector );
+    const appDispatch = useAppDispatch();
+    
+    useEffect( function didMount(){
+        videoId && appDispatch( fetchCVideoCommentsAction(videoId) )
+    }, [appDispatch, videoId] )
 
     return(
         <div className={`yt-comments flex-grow-[1] flex-col overflow-hidden lg:h-full w-full lg:w-[34%] ${className} ${xtraCss}`}>
