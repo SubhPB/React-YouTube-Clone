@@ -1,6 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { ChnlProp } from './ChannelTS';
 import { Data } from './ChannelTS';
 import { data } from './ChannelTS';
@@ -11,12 +11,16 @@ import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import ChnlSearch from './components/ChannelSearch';
 import { IoSearch } from "react-icons/io5";
 
-
+import { useAppDispatch } from '../../../redux-YT/app/store';
+import { useSelector } from 'react-redux';
+import { fetchChnlDetailsAction } from '../../../redux-YT/features/channel/chnlDetails/detailAction';
+import { chnlDetailsStateSelector } from '../../../redux-YT/features/channel/chnlDetails/detailSelectors';
 
 type HOME = 'HOME'; type COMMUNITY = 'COMMUNITY'; type SEARCH = 'SEARCH';
 type RouteType = HOME | COMMUNITY | SEARCH;
 
 function Channel({className='', xtraCss='',}: ChnlProp<null>): ReactElement {
+
 
     // why we using this useState (routeState):
     //      to avoid the unnecessary rerendering of the same UI with same data.
@@ -24,9 +28,18 @@ function Channel({className='', xtraCss='',}: ChnlProp<null>): ReactElement {
     const [routeState, setRouteState] = useState<RouteType>("HOME");
     const channelDetails = data as Data, isLoading = false;
 
+    // ---- thunk ----
+    // const {channelId} = useParams();
+    // const appDispatch = useAppDispatch();
+    // const {data: channelDetails, error, isLoading} = useSelector( chnlDetailsStateSelector );
+    
+    // useEffect( function didUpdate(){
+    //     if (channelId) appDispatch( fetchChnlDetailsAction(channelId) );
+    // }, [appDispatch, channelId])
+
     return (
         <div className={`flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm p-2 ${className} ${xtraCss}`}>
-            <MemoChannelHeader src={channelDetails} isLoading={isLoading}/>
+            <MemoChannelHeader src={channelDetails ?? undefined } isLoading={isLoading}/>
             <SwitchRoute callBackFunc={() => [routeState, setRouteState]}/>
 
             <Routes>
