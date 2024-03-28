@@ -2,7 +2,6 @@
 
 import {lazy, Suspense} from 'react';
 import './App.css';
-import AppContextProvider from './src-context/ContextApi';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Loading from './youtube/components-jsx/Loading';
 
@@ -11,7 +10,6 @@ const SearchPage = lazy(() => import('./youtube/pages-jsx/SearchPage'))
 
 function App() {
   return (
-    <AppContextProvider >
 
       <Router>
 
@@ -30,7 +28,6 @@ function App() {
 
       </Router>
 
-    </AppContextProvider>
   );
 };
 
