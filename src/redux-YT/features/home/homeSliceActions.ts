@@ -1,7 +1,7 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
 
-import { HomeSlice } from './homeActions';
+import { HomeSlice } from './homeSlice';
 
 interface actionProp {
     url ?: string; 
