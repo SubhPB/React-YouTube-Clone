@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import VideoDetailsDemo from '../../assists-jsx/videoDetailDemo.json';
 import Paragraph from './Paragraph';
 import { Img } from '../../assists-jsx/Assists';
+import { intToText } from '../../assists-jsx/funcs';
 
 interface vidDetailTS {
     className ?: string,
@@ -70,7 +71,7 @@ const VidStats:React.FC<{src: VidStat[]}> = ({src=[]}) => {
     const VidStat: React.FC<VidStat> = ({statData='',statName=''}) => {
         return (
             <div className="vid-stat text-center">
-                <h2 className='font-bold'>{statData}</h2>
+                <h2 className='font-bold'>{intToText(Number(statData))}</h2>
                 <h5 className='opacity-[.8]'>{statName}</h5>
             </div>
         )
