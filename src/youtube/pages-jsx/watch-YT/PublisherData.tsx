@@ -16,7 +16,10 @@ import { FaDownload } from "react-icons/fa6";
 import { FaReact } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { BiSolidDislike } from "react-icons/bi";
-
+import { useSelector } from 'react-redux';
+import { selectDisLikedVideos, selectLikedVideos } from '../../../redux-YT/features/video/targetVideos/targetVidSelectors';
+import { useAppDispatch } from '../../../redux-YT/app/store';
+import { likeVideoAction, dislikeVideoAction, neutralVideoAction } from '../../../redux-YT/features/video/targetVideos/targetVidSlice';
 // this component will be reponsible for video comments, publishing info. , other functionalities...
 
 interface vidDetailTS {
@@ -81,7 +84,14 @@ function DetailedVideoInfo({className='', xtraCss, source, isLoading} : vidDetai
 
 function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} : vidDetailTS): React.ReactElement {
 
+    const appDispatch = useAppDispatch();
+
+    const {videoId} = useParams();
     const navigate = useNavigate();
+
+    const videoIsLiked = useSelector( selectLikedVideos ).includes(videoId ?? 'N/A');
+    const videoIsDisLiked = useSelector( selectDisLikedVideos ).includes( videoId ?? 'N/A' )
+
     function PChannelAndSubscribe1(){
 
         const [subscribed, setSubscribed] = useState<boolean>(false);
@@ -119,13 +129,17 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
     };
 
     function PVideoBtns(){
-
-        const NEUTRAL = "NEUTRAL", LIKED = "LIKED", DISLIKED = "DISLIKED"
-        const [state, setState] = useState<"NEUTRAL" | "LIKED" | "DISLIKED">(NEUTRAL);
-        
+ 
+        // appDispatch( lik )
         const videoBtns: videoBtnTS[] = [
-            {text: '', icon: state === LIKED ? <AiFillLike /> :<AiOutlineLike />, onClick: () => setState(state => state === LIKED ? NEUTRAL : LIKED)},
-            {text: '', icon: state === DISLIKED ? <BiSolidDislike /> :<AiOutlineDislike />, onClick: () => setState(state => state === DISLIKED ? NEUTRAL : DISLIKED)},
+            {
+                text: '', icon: videoIsLiked ? <AiFillLike /> :<AiOutlineLike />,
+                onClick: () => videoId && appDispatch( videoIsLiked ? neutralVideoAction({ "id" : videoId } ) : likeVideoAction({ "id" : videoId }) )
+            },
+            {
+                text: '', icon: videoIsDisLiked ? <BiSolidDislike /> :<AiOutlineDislike />,
+                onClick: () =>  videoId && appDispatch( videoIsDisLiked ? neutralVideoAction({ "id" : videoId } ) : dislikeVideoAction({ "id" : videoId }))
+            },
             {text: 'Share', icon: <FaRegShareSquare />},
             {text: 'Download', icon: <FaDownload />},
             {text: 'Byimaan', icon: <FaReact /> }
