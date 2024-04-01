@@ -12,7 +12,7 @@ export interface Avatar {
 export interface Author {
     avatar: Avatar[];
     badges: Badge[];
-    channelId: string;
+    channelId ?: string;
     isChannelOwner: boolean;
     title: string;
   }
@@ -27,7 +27,7 @@ export   interface Stats {
     votes: number;
   }
   
-export   interface Comment {
+export interface Comment {
     author: Author;
     commentId: string;
     content: string;
