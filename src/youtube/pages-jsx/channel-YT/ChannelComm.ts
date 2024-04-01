@@ -26,7 +26,7 @@ export  interface Post {
 }
   
 export  interface Content {
-    post: Post;
+    post?: Post;
     type: string;
   }
   
