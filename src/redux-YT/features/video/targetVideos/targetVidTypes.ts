@@ -1,15 +1,10 @@
+import { Comment } from "../../../../youtube/assists-jsx/vidComments";
+
 export enum StatusTs {
     LIKED= 'LIKED',
     DISLIKE= 'DISLIKED',
     NEUTRAL= 'NEUTRAL',
 };
-
-export interface Comment {
-    [commentId: string] : {
-        status: StatusTs,
-        data: string
-    }; 
-}
 
 export interface VideoDataTs {
     [videoId : string] : {
