@@ -1,5 +1,4 @@
 
-
 interface VideoThumbnail {
     height: number;
     url: string;
