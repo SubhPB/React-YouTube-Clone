@@ -15,5 +15,5 @@ export const TargetVideosSlice = createSlice({
 });
 
 const TargetVideosReducer = TargetVideosSlice.reducer;
-export const {likeVideoAction, dislikeVideoAction, neutralVideoAction} = TargetVideosSlice.actions;
+export const {likeVideoAction, dislikeVideoAction, neutralVideoAction, addVideoComment, deleteVideoComment} = TargetVideosSlice.actions;
 export default TargetVideosReducer;
