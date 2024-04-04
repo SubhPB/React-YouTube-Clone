@@ -12,10 +12,11 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import { FaRegShareSquare } from "react-icons/fa";
-import { FaDownload } from "react-icons/fa6";
+import { FaDownLong, FaDownload } from "react-icons/fa6";
 import { FaReact } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { BiSolidDislike } from "react-icons/bi";
+import { intToText } from '../../assists-jsx/funcs';
 import { useSelector } from 'react-redux';
 import { selectDisLikedVideos, selectLikedVideos } from '../../../redux-YT/features/video/targetVideos/targetVidSelectors';
 import { useAppDispatch } from '../../../redux-YT/app/store';
@@ -129,20 +130,42 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
     };
 
     function PVideoBtns(){
+
+        const vidLikes = videoIsLiked ? intToText(Number(source?.stats?.likes)  + 1) : intToText(Number(source?.stats?.likes))
  
-        // appDispatch( lik )
+        const handleShare = async() => {
+            const videoUrl = 'https://www.youtube.com/watch?v='+videoId;
+            if (navigator?.share && videoId){
+                try {
+                    await navigator.share({
+                        title: 'Check out this video!',
+                        url: videoUrl,
+                    })
+                } catch (error){
+                    console.log("Can't share the video. Error occured ", error)
+                }
+            }
+        };
+        const handleDownload = () => {
+            alert(`We apologize, but the download feature is currently unavailable. We're actively working on improving our services to bring you new and exciting content. In the meantime, please explore the rest of our offerings. If you have any specific needs or questions, don't hesitate to contact our support team.\n Thank you for your understanding and patience \n - Byimaan`)
+        };
+
+        const handleByimaan = () => {
+            window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer');
+        }
+
         const videoBtns: videoBtnTS[] = [
             {
-                text: '', icon: videoIsLiked ? <AiFillLike /> :<AiOutlineLike />,
+                text: vidLikes, icon: videoIsLiked ? <AiFillLike /> :<AiOutlineLike />,
                 onClick: () => videoId && appDispatch( videoIsLiked ? neutralVideoAction({ "id" : videoId } ) : likeVideoAction({ "id" : videoId }) )
             },
             {
                 text: '', icon: videoIsDisLiked ? <BiSolidDislike /> :<AiOutlineDislike />,
                 onClick: () =>  videoId && appDispatch( videoIsDisLiked ? neutralVideoAction({ "id" : videoId } ) : dislikeVideoAction({ "id" : videoId }))
             },
-            {text: 'Share', icon: <FaRegShareSquare />},
-            {text: 'Download', icon: <FaDownload />},
-            {text: 'Byimaan', icon: <FaReact /> }
+            {text: 'Share', icon: <FaRegShareSquare />, onClick: handleShare},
+            {text: 'Download', icon: <FaDownload />, onClick: handleDownload},
+            {text: 'Byimaan', icon: <FaReact />, onClick: handleByimaan }
         ];
         const videoButtons: React.ReactElement[] = videoBtns.map( (data: videoBtnTS, index: number) => <VideoBtn key={index} text={data?.text} icon={data?.icon} onClick={data?.onClick} /> );
         return (
@@ -180,14 +203,13 @@ function VideoComments({className='', xtraCss='', isLoading, source}: vidDetailT
 
     return (
         <div className={`vid-comments min-h-[6] w-full rounded-2xl bg-zinc-800 p-2 cursor-pointer z-[4] ${className} ${xtraCss} `} onClick={() => handleNavigation(`/watch/${videoId}/comments`)}>
-            <span className='text-white opacity-[.9] text-sm flex items-center gap-2'> Comments <span className='ml-3'><MdInsertComment/></span>  <span className='opacity-[.8] '> {source?.stats?.comments ?? ''} </span> </span>
+            <span className='text-white opacity-[.9] text-sm flex items-center gap-2'> Comments <span className='ml-3'><MdInsertComment/></span>  <span className='opacity-[.8] '> {intToText(Number(source?.stats?.comments)) ?? ''} </span> </span>
             <VideoComment isLoading={isLoading}/>
         </div>
     )
 };
 
 function VideoComment({className='', xtraCss='', isLoading, source}: vidDetailTS): React.ReactElement {
-
 
     if (isLoading) return (
         <div className={`load-vid-comment w-full min-h-5 flex justify-around items-center mt-2 ${className} ${xtraCss}`}>
