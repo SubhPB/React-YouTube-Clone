@@ -13,7 +13,7 @@ export function VideoBtn( {text, icon, onClick} : videoBtnTS ): ReactElement {
     } 
 
     return (
-        <div onClick={ handleClick } className="video-btn flex jusitfy-around gap-2 items-center text-xs font-semibold">
+        <div onClick={ handleClick } className="video-btn flex jusitfy-around gap-2 items-center text-[11px] font-semibold">
             {icon}
             {text}
         </div>
