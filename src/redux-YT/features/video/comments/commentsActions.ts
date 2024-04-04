@@ -6,5 +6,7 @@ import { CommentsSlice } from "./commentsSlice"
 
 export const fetchCVideoCommentsAction = ( videoId : string) => (
     CommentsSlice.fetchSliceData(`video/comments/?id=${videoId}`)
-)
+);
+
+
 
