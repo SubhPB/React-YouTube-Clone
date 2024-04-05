@@ -16,9 +16,11 @@ import { GrChannel } from "react-icons/gr";
 import { GrHistory } from "react-icons/gr";
 import { AiFillLike } from "react-icons/ai";
 
-interface _MenuItem{
+export interface _MenuItem{
     component: ReactElement;
-    itemName: String
+    itemName: string;
+    url ?: string;
+    onClick ?: Function;
 };
 
 type _MenuItems = _MenuItem[]
@@ -41,8 +43,8 @@ export const menuData: _Section[] = [
     {
         sectionName: 'You', menuItems: [
             {itemName: 'Your Channel', component: <GrChannel />},
-            {itemName: 'History', component: <GrHistory/> },
-            {itemName: 'Liked videos', component: <AiFillLike /> }
+            {itemName: 'History', component: <GrHistory/>, url: '/user/you/history' },
+            {itemName: 'Liked videos', component: <AiFillLike />, url: '/user/you/liked-videos' }
         ]
     },
     {
