@@ -8,6 +8,7 @@ import SideBar from './common-jsx/SideBar';
 import BodyYT from './common-jsx/BodyYT';
 import Watch from './pages-jsx/watch-YT/Watch'; 
 import Channel from './pages-jsx/channel-YT/Channel';
+import UserYT from './pages-jsx/user-YT/User';
 
 function YouTube() {
 
@@ -24,6 +25,7 @@ function YouTube() {
             <Route path='/' element={<BodyYT />}/>
             <Route path='/watch/:videoId/*' element={<Watch callBackFunc={setRenderSideBar} />}/>
             <Route path='/channel/:channelId/*' element={<Channel /> } />
+            <Route path='/user/*' element={<UserYT />}/>
             <Route path='*' element={<> -N/A- not found ...</>} />
           </Routes>
 
