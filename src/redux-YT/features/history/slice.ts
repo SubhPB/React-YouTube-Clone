@@ -23,4 +23,4 @@ export const History = createSlice({
 });
 
 export const HistoryReducer = History.reducer;
-export const {appendVideoInHistory, appendChannelInHistory} = HistoryActions
+export const {appendVideoInHistory, appendChannelInHistory} = History.actions;
