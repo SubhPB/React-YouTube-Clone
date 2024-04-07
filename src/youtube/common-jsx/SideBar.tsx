@@ -6,6 +6,7 @@ import { defaultCmnProp } from '../assists-jsx/Assists';
 import { SiYoutubeshorts } from "react-icons/si";
 import { RiJavascriptLine } from "react-icons/ri";
 import { MdSubscriptions } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 interface Prop {
   className?: String,
@@ -16,30 +17,37 @@ interface Prop {
 interface PageProp {
   className?: String, xtraCss?: String,
   name: String, url: String, component?: ReactElement | undefined;
+  onClick: Function
 }
 
 const SideBar:React.FC<Prop> = (props=defaultCmnProp) => {
 
+  const navigate = useNavigate();
+
+  const handleShorts = () => {
+    alert(`We apologize, but the Shorts feature is currently unavailable. We're actively working on improving our services to bring you new and exciting content. In the meantime, please explore the rest of our offerings. If you have any specific needs or questions, don't hesitate to contact our support team.\n Thank you for your understanding and patience \n - Byimaan`)
+  };
+
   const pages: PageProp[] = [
-    {name: 'Home', url: '/', component: <IoIosHome className='h-5 min-w-5 '/> },
-    {name: 'Shorts', url: '/shorts', component: <SiYoutubeshorts className='h-5 min-w-5'/> },
-    {name: 'Subscription', url: '/subscription', component: <MdSubscriptions className='h-5 min-w-5' /> },
-    {name: 'Byimaan', url: 'https://subhpb.github.io/Portfolio/', component: <RiJavascriptLine className='h-5 min-w-5'/> },
+    {name: 'Home', url: '/', component: <IoIosHome className='h-5 min-w-5 '/>, onClick: () => navigate('/')},
+    {name: 'Shorts', url: '/shorts', component: <SiYoutubeshorts className='h-5 min-w-5'/>, onClick: handleShorts },
+    {name: 'Subscription', url: '/subscription', component: <MdSubscriptions className='h-5 min-w-5' />, onClick:() => navigate('/user/general/subcriptions')},
+    {name: 'Byimaan', url: 'https://subhpb.github.io/Portfolio/', component: <RiJavascriptLine className='h-5 min-w-5'/>, onClick: () => window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer') },
   ]
 
   return (
     <div className={`side-bar w-full lg:h-[100%] py-3 lg:px-3 lg:w-fit flex flex-row justify-around items-center lg:justify-start lg:gap-6 lg:flex-col ${props.className} ${props.xtraCss}`}>
       {
-        pages.map( (page, ind) => <Page key={ind} {...page} />)
+        pages.map( (page, ind) => <Page key={ind} {...page} onClick={page.onClick} />)
       }
     </div>
   );
 };
 
-const Page: React.FC<PageProp> = ({className='',xtraCss='', name,url, component}) => {
+const Page: React.FC<PageProp> = ({className='',xtraCss='', name,url, component, onClick}) => {
 
   return (
-    <div className={`side-bar-page cursor-pointer flex flex-col justify-center items-center ${className} ${xtraCss} `}>
+    <div onClick={() => onClick()} className={`side-bar-page cursor-pointer flex flex-col justify-center items-center ${className} ${xtraCss} `}>
       {component}
       <p className='text-sm'>{name}</p>
     </div>
