@@ -14,3 +14,7 @@ export const selectChannelsFromHistory = createSelector(selectHistory, (state: H
 export const selectVideosByIdsFromHistory = (videoIds: string[]) => createSelector( selectHistory, function(state: HistoryStateTs): Content[]{
     return state.videos.filter( (video) => videoIds.includes(video.video.videoId) )
 });
+
+export const selectChannelsByIdsFromHistory = (channelIds: string[]) => createSelector( selectHistory, (state: HistoryStateTs) => {
+    return state.channels.filter( chnl => channelIds.includes(chnl?.channelId) );
+});
