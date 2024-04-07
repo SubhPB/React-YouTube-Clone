@@ -43,7 +43,7 @@ function BodyYT() {
   
   
   return (
-    <div className='body-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm '>
+    <div className='body-yt flex-grow-[1] max-h-dvh overflow-y-scroll md:scrollbar-cstm lg:scrollbar-cstm '>
 
       { 
         data?.refinements && (
