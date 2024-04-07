@@ -19,7 +19,11 @@ function appendVideoInHistory(state: HistoryStateTs, action: PayloadAction<Conte
 };
 
 function appendChannelInHistory(state: HistoryStateTs, action: PayloadAction<Data>){
-    state.channels.push(action.payload);
+    const allChannelIds = state.channels.map( chnl => chnl?.channelId );
+    const thisChnlId = action?.payload?.channelId;
+    if (!allChannelIds.includes(thisChnlId)){
+        state.channels.push(action.payload);  
+    };
 };
 
 
