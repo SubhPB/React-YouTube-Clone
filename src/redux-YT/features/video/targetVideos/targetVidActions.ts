@@ -4,7 +4,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { IdActionType, AddCommentAction, delCommentAction } from "./targetVidTypes";
 import { VideoDataTs } from "./targetVidTypes";
 import { StatusTs } from "./targetVidTypes";
-import { Comment, Author, Stats } from "../../../../youtube/assists-jsx/vidComments";
+import { Comment } from "../../../../youtube/assists-jsx/vidComments";
 
 function likeVideoAction(state: VideoDataTs, action: PayloadAction<IdActionType> ) {
     const videoId = action.payload.id;
