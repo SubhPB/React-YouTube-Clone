@@ -2,7 +2,8 @@
 
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store";
-import { StatusTs } from "./targetVidTypes";
+import { StatusTs, VideoDataTs } from "./targetVidTypes";
+import { Comment } from "../../../../youtube/assists-jsx/vidComments";
 
 export const selectTargetVideos = (state: RootState) => state.video.targetVideos;
 
@@ -16,6 +17,12 @@ export const selectDisLikedVideos = createSelector( selectTargetVideos, (state):
     return keys.filter( (key, ind) => state[key].status === StatusTs.DISLIKE );
 });
 
+export const selectComments = (videoId: string) => createSelector( selectTargetVideos, (state: VideoDataTs):Comment[] => {
+    if (Object.hasOwn(state, videoId)){
+        return state[videoId].myComments;
+    };
+    return []
+});
 
 
 // export const allTargetVideosStateSelector = createSelector(  )
