@@ -16,3 +16,11 @@ export interface VideoDataTs {
 export interface IdActionType {
     id: string
 };
+
+export interface AddCommentAction extends IdActionType{
+    content: string | null ;
+}
+
+export interface delCommentAction extends IdActionType {
+    commentId: string,
+}
