@@ -2,7 +2,6 @@
 
 import React, { ReactElement, ReactNode } from 'react';
 import { AiFillHome } from "react-icons/ai";
-import { SiYoutubeshorts } from "react-icons/si";
 import { MdSubscriptions } from "react-icons/md";
 import { FaAngleRight } from "react-icons/fa6";
 import { menuData } from '../assists-jsx/data';
@@ -27,7 +26,6 @@ const MenuYT: React.FC<{xtraCss?: string}> = ({xtraCss=''}) => {
             <div className="top-menu-items w-full py-2">
                 <Section name='General'>
                     <MenuItem component={<AiFillHome />} name='Home' onClick={() => navigate('/')}/>
-                    <MenuItem component={<SiYoutubeshorts />} name='Shorts'/>
                     <MenuItem component={<MdSubscriptions />} name='Subscription' onClick={() => navigate('/user/general/subcriptions')}/>
                 </Section>
                 {

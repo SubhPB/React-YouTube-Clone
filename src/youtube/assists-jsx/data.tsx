@@ -8,13 +8,11 @@ import { MdOutlineSportsEsports } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { PiStudent } from "react-icons/pi";
 import { GiHanger } from "react-icons/gi";
-import { CiSettings } from "react-icons/ci";
-import { MdOutlineReport } from "react-icons/md";
-import { LuHelpCircle } from "react-icons/lu";
 import { MdFeedback } from "react-icons/md";
-import { GrChannel } from "react-icons/gr";
 import { GrHistory } from "react-icons/gr";
+import { FaGithub } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
+import { DiReact } from "react-icons/di";
 
 export interface _MenuItem{
     component: ReactElement;
@@ -32,27 +30,26 @@ interface _Section{
 
 export const menuData: _Section[] = [
     {sectionName: 'Explore', menuItems: [
-        {itemName: 'Trending', component:<FaArrowTrendUp/>},
-        {itemName: 'Music', component: <IoIosMusicalNotes/>},
-        {itemName: 'Movies & Tv', component: <BiSolidCameraMovie /> },
-        {itemName: 'Sports', component: <MdOutlineSportsBaseball/>  },
-        {itemName: 'Gaming', component: <MdOutlineSportsEsports/>},
-        {itemName: 'Learning', component: <PiStudent />},
-        {itemName: 'Fashion & Beauty', component: <GiHanger/>},
+        {itemName: 'Trending', component:<FaArrowTrendUp/>, url: '/query/trending'},
+        {itemName: 'Music', component: <IoIosMusicalNotes/>, url: '/query/music'},
+        {itemName: 'Movies & Tv', component: <BiSolidCameraMovie />, url: '/query/movies%20and%20tv%20shows' },
+        {itemName: 'Sports', component: <MdOutlineSportsBaseball/>, url: '/query/sports'  },
+        {itemName: 'Gaming', component: <MdOutlineSportsEsports/>, url: '/query/gaming'},
+        {itemName: 'Learning', component: <PiStudent />, url: '/query/learning'},
+        {itemName: 'Fashion & Beauty', component: <GiHanger/>, url: '/query/fashion%20and%20beauty'},
     ]},
     {
         sectionName: 'You', menuItems: [
-            {itemName: 'Your Channel', component: <GrChannel />},
+            // {itemName: 'Your Channel', component: <GrChannel />}, currently not available....
             {itemName: 'History', component: <GrHistory/>, url: '/user/you/history' },
             {itemName: 'Liked videos', component: <AiFillLike />, url: '/user/you/liked-videos' }
         ]
     },
     {
         sectionName: undefined, menuItems: [
-            {itemName: 'Setting', component: <CiSettings />},
-            {itemName: 'Report', component: <MdOutlineReport /> },
-            {itemName: 'Help', component: <LuHelpCircle />},
-            {itemName: 'Send feedback', component: <MdFeedback />}
+            {itemName: 'Github', component: <FaGithub />, onClick: () => window.open('https://github.com/SubhPB/React-YouTube-Clone', '_blank', 'noopener,noreferrer')},
+            {itemName: 'Developer', component: <DiReact />, onClick: () => window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer')},
+            {itemName: 'Send feedback', component: <MdFeedback />, onClick: () => window.open('mailto:byimaan1@gmail.com','_blank')}
         ]
     },
 ]
