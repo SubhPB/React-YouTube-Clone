@@ -21,11 +21,11 @@ function Paragraph({className='', xtraCss=' sm-card-p-tag', source, isLoading, t
         return <div className='w-full rounded-[12px] bg-zinc-700 min-h-[5vmin]'></div>
     };
 
-    const PLines = source?.split('\n').map( (line:string, index: number) => <div key={index} className=''>{line}</div>)
+    const PLines = source?.split('\n').map( (line:string, index: number) => <p key={index} className=''>{line}</p>)
 
     return (
         <div onClick={ () => setZoom(!zoom) } className={`dsc-para w-full p-2 bg-zinc-800 rounded-[12px] ${className}`}>
-            <p className={` cursor-default ${textSize} ${ !zoom && xtraCss }`}>{PLines}</p>
+            <div className={` cursor-default ${textSize} ${ !zoom && xtraCss }`}>{PLines}</div>
         </div>
     );
 }
