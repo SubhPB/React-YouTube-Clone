@@ -15,6 +15,9 @@ import { useAppDispatch } from '../../../redux-YT/app/store';
 import { useSelector } from 'react-redux';
 import { fetchChnlDetailsAction } from '../../../redux-YT/features/channel/chnlDetails/detailAction';
 import { chnlDetailsStateSelector } from '../../../redux-YT/features/channel/chnlDetails/detailSelectors';
+import { selectSubcribedChannelsId } from '../../../redux-YT/features/channel/subcriptions/selectors';
+import { appendChannelInHistory } from '../../../redux-YT/features/history/slice';
+
 
 type HOME = 'HOME'; type COMMUNITY = 'COMMUNITY'; type SEARCH = 'SEARCH';
 type RouteType = HOME | COMMUNITY | SEARCH;
@@ -27,15 +30,20 @@ function Channel({className='', xtraCss='',}: ChnlProp<null>): ReactElement {
     //      Suppose if user first click to community. while staying at the Community we reclicked on Community
     const [routeState, setRouteState] = useState<RouteType>("HOME");
     const channelDetails = data as Data, isLoading = false;
+    const {channelId} = useParams();
+    const appDispatch = useAppDispatch();    
 
     // ---- thunk ----
-    // const {channelId} = useParams();
-    // const appDispatch = useAppDispatch();
     // const {data: channelDetails, error, isLoading} = useSelector( chnlDetailsStateSelector );
     
     // useEffect( function didUpdate(){
-    //     if (channelId) appDispatch( fetchChnlDetailsAction(channelId) );
-    // }, [appDispatch, channelId])
+    //     if (channelId){ 
+    //         console.log('fetching channel data from Api...');
+    //         appDispatch( fetchChnlDetailsAction(channelId) );
+    //         channelDetails && appDispatch( appendChannelInHistory(channelDetails) );
+            
+    //     };
+    // }, [appDispatch, channelId]);
 
     return (
         <div className={`flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm p-2 ${className} ${xtraCss}`}>
