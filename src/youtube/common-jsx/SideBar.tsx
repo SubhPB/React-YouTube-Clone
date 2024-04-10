@@ -16,22 +16,18 @@ interface Prop {
 
 interface PageProp {
   className?: String, xtraCss?: String,
-  name: String, url: String, component?: ReactElement | undefined;
+  name: String, url?: string, component?: ReactElement | undefined;
   onClick: Function
 }
 
 const SideBar:React.FC<Prop> = (props=defaultCmnProp) => {
 
   const navigate = useNavigate();
-
-  const handleShorts = () => {
-    alert(`We apologize, but the Shorts feature is currently unavailable. We're actively working on improving our services to bring you new and exciting content. In the meantime, please explore the rest of our offerings. If you have any specific needs or questions, don't hesitate to contact our support team.\n Thank you for your understanding and patience \n - Byimaan`)
-  };
-
+  
   const pages: PageProp[] = [
     {name: 'Home', url: '/', component: <IoIosHome className='h-5 min-w-5 '/>, onClick: () => navigate('/')},
-    {name: 'Shorts', url: '/shorts', component: <SiYoutubeshorts className='h-5 min-w-5'/>, onClick: handleShorts },
     {name: 'Subscription', url: '/subscription', component: <MdSubscriptions className='h-5 min-w-5' />, onClick:() => navigate('/user/general/subcriptions')},
+    {name: 'Github', component: <SiYoutubeshorts className='h-5 min-w-5'/>, onClick: () => window.open('https://github.com/SubhPB/React-YouTube-Clone', '_blank', 'noopener,noreferrer') },
     {name: 'Byimaan', url: 'https://subhpb.github.io/Portfolio/', component: <RiJavascriptLine className='h-5 min-w-5'/>, onClick: () => window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer') },
   ]
 
