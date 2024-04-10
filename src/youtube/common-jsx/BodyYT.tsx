@@ -17,23 +17,20 @@ function BodyYT() {
 
   const {q} = useParams();
   
-  const _data: ApiResponse = searchDemoData as ApiResponse;
-  const [data, error, isLoading] = [ _data , '', false ]
+  // const _data: ApiResponse = searchDemoData as ApiResponse;
 
-  // 
+  // const [data, error, isLoading] = [ _data , '', false ]
   // const { data , error, isLoading } = useFetch<ApiResponse>( !q ? 'home/' : `search/?q=${q}`);
   
-  /*  --- Redux + Thunk --- 
+  /*  --- Redux + Thunk ---  */
   const appDispatch = useAppDispatch();
   const { data, error, isLoading } = useSelector( homeStateSelector );
 
   useEffect( function mount(){
     
-    console.log(' BODY-YT: useEffect Activated! ')
     appDispatch(fetchHomeDataAction( { query : q } ));
 
   }, [appDispatch, q])
-  */
 
   if (isLoading || error || !data){
     return (
