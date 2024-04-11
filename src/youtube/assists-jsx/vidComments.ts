@@ -12,9 +12,9 @@ export interface Avatar {
 export interface Author {
     avatar: Avatar[];
     badges: Badge[];
-    channelId ?: string;
-    isChannelOwner: boolean;
-    title: string;
+    channelId ?: string | null;
+    isChannelOwner?: boolean | null;
+    title?: string | null;
 }
   
 export interface Pinned {
@@ -29,13 +29,14 @@ export interface Stats {
   
 export interface Comment {
     author: Author;
-    commentId: string;
-    content: string;
+    commentId: string | null;
+    content: string | null;
     creatorHeart: boolean;
     cursorReplies: string | null;
     pinned ?: Pinned;
-    publishedTimeText ?: string;
+    publishedTimeText ?: string | null;
     stats: Stats;
+    paid ?: any
 }
   
 export interface CommentsSection {
