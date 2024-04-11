@@ -36,7 +36,7 @@ export const Img: React.FC<CmnProps<string>> = ({ className=" h-full w-full auto
 
     return (
         <>
-        {source && <img onClick={onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" onError={() =>setError(true)} />}
+        {source && <img onClick={() => onClick()} src={` ${source} `} className={` ${className} ${xtraCss} `} alt="-img-byi" onError={() =>setError(true)} />}
         </>
     );
 };
