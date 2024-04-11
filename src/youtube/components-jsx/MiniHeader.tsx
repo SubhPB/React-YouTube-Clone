@@ -12,7 +12,7 @@ function MiniHeader({className=' ', xtraCss='', children} : CmnProps<any>) {
   )
 };
 
-export const Genre: React.FC<CmnProps<string>> = ({className='py-2 px-3 font-semibold text-xs bg-zinc-600 rounded-[10px] cursor-pointer snap-start ', xtraCss='', source='Byimaan', url, children, loading, handleClick}) => {
+export const Genre: React.FC<CmnProps<string>> = ({className='py-2 px-3 font-semibold text-xs bg-zinc-800 rounded-[10px] cursor-pointer snap-start ', xtraCss='', source='Byimaan', url, children, loading, handleClick}) => {
 
     const navigate = useNavigate();
 

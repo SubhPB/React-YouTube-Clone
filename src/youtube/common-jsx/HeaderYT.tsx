@@ -4,7 +4,7 @@ import React, { ReactElement, ReactNode, useState } from 'react';
 import { FiMenu } from "react-icons/fi";
 import { Img, defaultCmnProp } from '../assists-jsx/Assists';
 import { IoSearch } from "react-icons/io5";
-import { IoVideocamOutline } from "react-icons/io5";
+import { CiLinkedin } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import UTubeLogo from '../../src-static/images/yt-logo.png';
@@ -13,7 +13,7 @@ import MenuYT from './MenuYT';
 
 interface Btn {
   name?: String;
-  link?: String;
+  link?: string;
   component?: ReactElement | undefined;
   className?: String,
   xtraCss?: String,
@@ -23,8 +23,8 @@ interface Btn {
 
 interface BtnsProps {
   btns?: Btn[],
-  className?: String,
-  xtraCss?: String,
+  className?: string,
+  xtraCss?: string,
   children ?: ReactNode | undefined,
   onClick ?: Function,
 }
@@ -39,10 +39,9 @@ function HeaderYT() {
   };
 
   const buttons: Btn[] = [
-    {name: 'search-icon', link: '#', component: <IoSearch className='h-5 w-5 text-bold sm:block lg:hidden ' onClick={() => migrate('/search')}/>},
-    {name: 'video-icon', link: '#', component: <IoVideocamOutline className='h-5 w-5 text-bold' /> },
-    {name: 'bell-icon', link: '#', component: <IoIosNotificationsOutline className='h-5 w-5 text-bold'/>},
-    {name: 'user-icon', link: '#', component: <FaRegUser className='h-4 w-4 text-bold' /> }
+    {name: 'search-icon', link: '/search', component: <IoSearch className='h-5 w-5 text-bold sm:block lg:hidden ' onClick={() => migrate('/search')}/>},
+    {name: 'bell-icon', component: <IoIosNotificationsOutline className='h-5 w-5 text-bold' onClick={() => migrate('/user/general/notifications')}/>},
+    {name: 'linkedIn-icon',  component: <CiLinkedin className='h-4 w-4 text-bold' onClick={() => window.open('https://www.linkedin.com/in/subh-byimaan-1260b82a8/', '_blank', 'noopener,noreferrer')} /> }
   ]
 
   return (
@@ -53,7 +52,7 @@ function HeaderYT() {
         <div className="title-start flex gap-[2.2vmax] items-center">
             <FiMenu className='cursor-pointer' onClick={() => setRenderMenu(!renderMenu)}/>
             <div className='h-7 '>
-              <Img source={UTubeLogo}/>
+              <Img onClick={() => navigate('/')} source={UTubeLogo}/>
             </div> 
         </div>
 
@@ -102,7 +101,6 @@ export const SearchBar:React.FC<{xtraCss ?: string, inputCss?: string}> = ({xtra
 };
 
 const Buttons: React.FC<BtnsProps> = (props={...defaultCmnProp}) => {
-
   return (
     <div className={`btns ${props.className} ${props.xtraCss}`}>
       {
@@ -115,10 +113,7 @@ const Buttons: React.FC<BtnsProps> = (props={...defaultCmnProp}) => {
 };
 
 const Button: React.FC<Btn> = (props=defaultCmnProp) => {
-
-
   if (props.component) {
-
     return (
       <div className={`cursor-pointer ${props.className} ${props.xtraCss}`} >
         {
