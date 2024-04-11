@@ -11,11 +11,20 @@ import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from 'react-icons/ai';
 import { intToText } from '../../assists-jsx/funcs';
 
+import { selectLikedComments, selectDislikedComments } from '../../../redux-YT/features/video/comments/targetComments/selectors';
+import { likeComment, dislikeComment, neutralComment } from '../../../redux-YT/features/video/comments/targetComments/slice';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../../redux-YT/app/store';
 
 const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src, isLoading }) => {
 
     const [zoom, setZoom] = useState<boolean>(false);
+    const commentId = src?.commentId;
 
+    const commentIsLiked = useSelector(selectLikedComments).includes(commentId ?? 'N/A');
+    const commentIsDisLiked = useSelector(selectDislikedComments).includes(commentId ?? 'N/A');
+    const appDispatch = useAppDispatch();
+    
     if (isLoading){
       return (
         <div className="cmnt-loading flex w-full py-1 gap-1 mb-2">
@@ -45,11 +54,11 @@ const CommentYT:React.FC<CommentTS<Comment>> = ({ className='', xtraCss='', src,
 
           <div className="cmnt-stats mt-2 w-full flex gap-3 items-center">
             <div className="cmnt-like flex text-xs items-center cursor-pointer">
-              <AiFillLike />
-              <p className='text-[.6rem] font-semibold'>{intToText(Number(src?.stats?.votes))}</p>
+              {commentIsLiked ? <AiFillLike onClick={() => commentId && appDispatch(neutralComment({'id': commentId}))} /> : <AiOutlineLike onClick={() => commentId && appDispatch(likeComment({'id': commentId}))} /> }
+              <p className='text-[.6rem] font-semibold'>{intToText(Number(src?.stats?.votes) + (commentIsLiked ? 1 : 0))}</p>
             </div>
 
-            <AiOutlineDislike className=' cursor-pointer'/>
+            { commentIsDisLiked ? <AiFillDislike className='cursor-pointer' onClick={() => commentId && appDispatch(neutralComment({'id': commentId}))} /> : <AiOutlineDislike className=' cursor-pointer' onClick={() => commentId && appDispatch(dislikeComment({'id': commentId}))}/>}
 
           </div>
 
