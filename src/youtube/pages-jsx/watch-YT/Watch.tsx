@@ -12,6 +12,12 @@ import { Routes, Route } from 'react-router-dom';
 import CommentsYT from '../comments-YT/Comments';
 import VidDescription from '../Description-YT/VidDescription';
 
+import { selectVideoDetails } from '../../../redux-YT/features/video/details/selectors';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../../redux-YT/app/store';
+import { fetchVideoDetailsAction } from '../../../redux-YT/features/video/details/actions';
+import { fetchRelatedContentAction } from '../../../redux-YT/features/video/related-content/actions';
+
 interface PublishTS {
     data : VideoDetailApiResponse,
     isLoading : boolean
@@ -22,10 +28,12 @@ const Watch: React.FC<CmnProps<any>> = ({className='', xtraCss='', callBackFunc=
     const {videoId} = useParams();
     const navigate = useNavigate();
 
-    const _data = demoVideoDetail as VideoDetailApiResponse
-
+    // const _data = demoVideoDetail as VideoDetailApiResponse
     // const publishData = useFetch<VideoDetailApiResponse>(`video/details/?id=${videoId}`);
-    const publishData: PublishTS = {data: _data, isLoading: false}
+    //const publishData: PublishTS = {data: _data, isLoading: false}
+
+    const appDispatch = useAppDispatch();
+    const {data, error, isLoading} = useSelector( selectVideoDetails );
 
     useEffect( function componentDidMount(){
 
@@ -38,6 +46,11 @@ const Watch: React.FC<CmnProps<any>> = ({className='', xtraCss='', callBackFunc=
             callBackFunc(renderSideBar);
         };
     }, []);
+
+    useEffect( function didUpdate(){
+        videoId  && appDispatch( fetchVideoDetailsAction(videoId) );
+        videoId && appDispatch( fetchRelatedContentAction(videoId) );
+    }, [appDispatch, videoId])
     
     if (!videoId) {
         navigate(-1);
@@ -46,17 +59,17 @@ const Watch: React.FC<CmnProps<any>> = ({className='', xtraCss='', callBackFunc=
 
     return (
         <div className={`watch-yt flex-grow-[1] max-h-dvh overflow-y-scroll scrollbar-hide lg:scrollbar-cstm bg-zinc-900 flex justify-between flex-col lg:flex-row ${className} ${xtraCss}`}>
-            <VideoContent className='min-h-[30%] lg:h-full w-full lg:w-[65%] flex flex-col px-2' videoId={videoId} isLoading={publishData.isLoading} >
-                <PublisherData xtraCss='hidden lg:flex' source={publishData.data} isLoading={publishData.isLoading} /> 
+            <VideoContent className='min-h-[30%] lg:h-full w-full lg:w-[65%] flex flex-col px-2' videoId={videoId} isLoading={isLoading} >
+                <PublisherData xtraCss='hidden lg:flex' source={data} isLoading={isLoading} /> 
             </VideoContent>    
  
             <Routes>
 
                 <Route path='comments/*' element={ <CommentsYT /> }/>
-                <Route path={'description/'} element={  <VidDescription className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'/> }/>
+                <Route path={'description/'} element={  <VidDescription className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]' source={data} isLoading={isLoading}/> }/>
                 <Route path='*' element={ 
                     <RelatedContent className='flex-grow-[1] max-h-dvh overflow-y-scroll sm:hide scrollbar-hide lg:scrollbar-cstm lg:h-full w-full lg:w-[34%]'>
-                        <PublisherData className=' lg:hidden' source={publishData.data} isLoading={publishData.isLoading} /> 
+                        <PublisherData className=' lg:hidden' source={data} isLoading={isLoading} /> 
                     </RelatedContent>
                 }/>
 

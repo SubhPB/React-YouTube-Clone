@@ -32,16 +32,19 @@ const CommentsYT:React.FC<CommentTS<CommentsSection>> = ( { className='', xtraCs
 
     const navigate = useNavigate();
     const {videoId} = useParams();
-    const data = CommentsDemoData as CommentsSection;
-    const isLoading = false;
+    // const data = CommentsDemoData as CommentsSection;
+    // const isLoading = false;
 
     const userComments:Comment[]  = useSelector( selectComments(videoId ?? 'N/A') );
-    // const { data, error, isLoading } = useSelector( videoCommentsSelector );
-    // const appDispatch = useAppDispatch();
+    const { data, error, isLoading } = useSelector( videoCommentsSelector );
+    const appDispatch = useAppDispatch();
+
+
     
-    // useEffect( function didMount(){
-    //     videoId && appDispatch( fetchCVideoCommentsAction(videoId) )
-    // }, [appDispatch, videoId] )
+    useEffect( function didMount(){
+        videoId && appDispatch( fetchCVideoCommentsAction(videoId) )
+        console.log('comments -> ',data)
+    }, [appDispatch, videoId] )
 
     return(
         <div className={`yt-comments relative flex-grow-[1] flex-col overflow-hidden lg:h-full w-full lg:w-[34%] ${className} ${xtraCss}`}>
