@@ -1,12 +1,15 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React, {UIEventHandler, useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import { CmnProps } from '../../assists-jsx/Assists';
 import FlexContainer from '../../assists-jsx/FlexContainer';
 import { ApiResponse } from '../../assists-jsx/apiInterfaces';
 import searchDemoData from '../../../youtube/assists-jsx/searchDemoData.json'
 import { VideoCardYT } from '../../components-jsx/VideoCardYT.tsx/VideoCardYT';
+
 // import PublisherData from './PublisherData';
+import { useSelector } from 'react-redux';
+import { selectRelatedContent } from '../../../redux-YT/features/video/related-content/selectors';
 
 interface State{
     incOffsetTop : number,
@@ -17,10 +20,13 @@ const defaultState = { incOffsetTop: Infinity, reference: null, commentDiv: null
 
 const RelatedContent : React.FC<CmnProps<any>> = ({className='', xtraCss='', children}) => {
 
-    const _data: ApiResponse = searchDemoData as ApiResponse;
-    const [data, error, isLoading] = [ _data , '', false ];
+    // const _data: ApiResponse = searchDemoData as ApiResponse;
+    // const [data, error, isLoading] = [ _data , '', false ];
+
     const [ state , setState] = useState<State>(defaultState);
     const parentRef = useRef<HTMLDivElement>(null);
+
+    const {data, error, isLoading} = useSelector(selectRelatedContent)
 
     useEffect( function didMount(){ 
         const reference = parentRef?.current as HTMLElement;
