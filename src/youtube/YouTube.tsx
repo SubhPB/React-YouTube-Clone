@@ -9,6 +9,7 @@ import BodyYT from './common-jsx/BodyYT';
 import Watch from './pages-jsx/watch-YT/Watch'; 
 import Channel from './pages-jsx/channel-YT/Channel';
 import UserYT from './pages-jsx/user-YT/User';
+import ApiError from './pages-jsx/error-api-YT/Error';
 
 function YouTube() {
 
@@ -26,6 +27,7 @@ function YouTube() {
             <Route path='/watch/:videoId/*' element={<Watch callBackFunc={setRenderSideBar} />}/>
             <Route path='/channel/:channelId/*' element={<Channel /> } />
             <Route path='/user/*' element={<UserYT />}/>
+            <Route path='/api-error' element={<ApiError />}/>
             <Route path='*' element={<> -N/A- not found ...</>} />
           </Routes>
 
