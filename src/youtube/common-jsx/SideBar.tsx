@@ -3,7 +3,7 @@
 import React, {ReactElement, ReactNode} from 'react';
 import { IoIosHome } from "react-icons/io";
 import { defaultCmnProp } from '../assists-jsx/Assists';
-import { SiYoutubeshorts } from "react-icons/si";
+import { FaGitAlt } from "react-icons/fa6";
 import { RiJavascriptLine } from "react-icons/ri";
 import { MdSubscriptions } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const SideBar:React.FC<Prop> = (props=defaultCmnProp) => {
   const pages: PageProp[] = [
     {name: 'Home', url: '/', component: <IoIosHome className='h-5 min-w-5 '/>, onClick: () => navigate('/')},
     {name: 'Subscription', url: '/subscription', component: <MdSubscriptions className='h-5 min-w-5' />, onClick:() => navigate('/user/general/subcriptions')},
-    {name: 'Github', component: <SiYoutubeshorts className='h-5 min-w-5'/>, onClick: () => window.open('https://github.com/SubhPB/React-YouTube-Clone', '_blank', 'noopener,noreferrer') },
+    {name: 'Github', component: <FaGitAlt className='h-5 min-w-5'/>, onClick: () => window.open('https://github.com/SubhPB/React-YouTube-Clone', '_blank', 'noopener,noreferrer') },
     {name: 'Byimaan', url: 'https://subhpb.github.io/Portfolio/', component: <RiJavascriptLine className='h-5 min-w-5'/>, onClick: () => window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer') },
   ]
 
