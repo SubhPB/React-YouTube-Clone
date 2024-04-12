@@ -28,22 +28,26 @@ function Channel({className='', xtraCss='',}: ChnlProp<null>): ReactElement {
     // why we using this useState (routeState):
     //      to avoid the unnecessary rerendering of the same UI with same data.
     //      Suppose if user first click to community. while staying at the Community we reclicked on Community
-    const [routeState, setRouteState] = useState<RouteType>("HOME");
-    const channelDetails = data as Data, isLoading = false;
     const {channelId} = useParams();
-    const appDispatch = useAppDispatch();    
+    const [routeState, setRouteState] = useState<RouteType>("HOME");
 
+    // const channelDetails = data as Data, isLoading = false;
     // ---- thunk ----
-    // const {data: channelDetails, error, isLoading} = useSelector( chnlDetailsStateSelector );
+    const appDispatch = useAppDispatch();    
+    const {data: channelDetails, error, isLoading} = useSelector( chnlDetailsStateSelector );
     
-    // useEffect( function didUpdate(){
-    //     if (channelId){ 
-    //         console.log('fetching channel data from Api...');
-    //         appDispatch( fetchChnlDetailsAction(channelId) );
-    //         channelDetails && appDispatch( appendChannelInHistory(channelDetails) );
-            
-    //     };
-    // }, [appDispatch, channelId]);
+    useEffect( function didUpdate(){
+        if (channelId){ 
+            appDispatch( fetchChnlDetailsAction(channelId) );
+            // channelDetails && appDispatch( appendChannelInHistory(channelDetails) );
+            if (channelDetails){
+                console.log('Channel details has been successfully injected into the history!')
+                appDispatch( appendChannelInHistory(channelDetails) )
+            } else{
+                console.log('Failed to inject channel data in history. because channelDetails is null!')
+            }
+        };
+    }, [appDispatch, channelId]);
 
     return (
         <div className={`flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm p-2 ${className} ${xtraCss}`}>
