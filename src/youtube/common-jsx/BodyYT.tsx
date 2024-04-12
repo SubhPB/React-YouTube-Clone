@@ -27,9 +27,7 @@ function BodyYT() {
   const { data, error, isLoading } = useSelector( homeStateSelector );
 
   useEffect( function mount(){
-    
-    appDispatch(fetchHomeDataAction( { query : q } ));
-
+    if (q || !data) appDispatch(fetchHomeDataAction( { query : q } ));
   }, [appDispatch, q])
 
   if (isLoading || error || !data){
