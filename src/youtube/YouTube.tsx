@@ -9,7 +9,7 @@ import BodyYT from './common-jsx/BodyYT';
 import Watch from './pages-jsx/watch-YT/Watch'; 
 import Channel from './pages-jsx/channel-YT/Channel';
 import UserYT from './pages-jsx/user-YT/User';
-import ApiError from './pages-jsx/error-api-YT/Error';
+import ApiError from './pages-jsx/error-api-YT/ApiError';
 
 function YouTube() {
 
