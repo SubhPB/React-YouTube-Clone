@@ -22,16 +22,16 @@ import { useAppDispatch } from '../../../../redux-YT/app/store';
 export const ChnlCommunity:React.FC<ChnlProp<any>> = ({className='', xtraCss=''}) => {
 
     const {channelId} = useParams();
-    const [data, error, isLoading] = [demoCommunityData as DataStructure, null, false]
+    // const [data, error, isLoading] = [demoCommunityData as DataStructure, null, false]
 
     // thunk
-    // const appDispatch = useAppDispatch();
-    // const { data, error, isLoading } = useSelector(communityStateSelector);
-    // useEffect( function didUpdate(){
-    //     if (channelId){
-    //         appDispatch( fetchChnlCommunityAction(channelId))
-    //     };
-    // }, [appDispatch, channelId])
+    const appDispatch = useAppDispatch();
+    const { data, error, isLoading } = useSelector(communityStateSelector);
+    useEffect( function didUpdate(){
+        if (channelId){
+            appDispatch( fetchChnlCommunityAction(channelId))
+        };
+    }, [appDispatch, channelId])
 
     return (
         <div className={` w-full ${className} ${xtraCss}`}>
