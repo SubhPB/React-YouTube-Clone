@@ -12,7 +12,6 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import { FaRegShareSquare } from "react-icons/fa";
-import { FaDownLong, FaDownload } from "react-icons/fa6";
 import { FaReact } from "react-icons/fa";
 import { AiFillLike } from "react-icons/ai";
 import { BiSolidDislike } from "react-icons/bi";
@@ -21,6 +20,8 @@ import { useSelector } from 'react-redux';
 import { selectDisLikedVideos, selectLikedVideos } from '../../../redux-YT/features/video/targetVideos/targetVidSelectors';
 import { useAppDispatch } from '../../../redux-YT/app/store';
 import { likeVideoAction, dislikeVideoAction, neutralVideoAction } from '../../../redux-YT/features/video/targetVideos/targetVidSlice';
+import { subcribreChnl, unSubcribeChnl } from '../../../redux-YT/features/channel/subcriptions/slice';
+import { selectSubcribedChannelsId } from '../../../redux-YT/features/channel/subcriptions/selectors';
 // this component will be reponsible for video comments, publishing info. , other functionalities...
 
 interface vidDetailTS {
@@ -95,7 +96,8 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
 
     function PChannelAndSubscribe1(){
 
-        const [subscribed, setSubscribed] = useState<boolean>(false);
+        const channelId = source?.author?.channelId;
+        const isSubcribed = useSelector( selectSubcribedChannelsId ).includes(channelId ?? 'n/a');
 
         function P({className='', xtraCss='',onClick= () => {}, children}: vidDetailTS){
             if (isLoading) return <p className={"load-p-chnl-subs min-h-6 mx-2 min-w-10 bg-zinc-600 rounded-2xl"} />
@@ -104,12 +106,21 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
         };
 
         function SubscribeBtn(){
-            if (isLoading) return <div className="load-sub-btn p-4 min-h-9 min-w-20 rounded-[11px] bg-zinc-600"></div>
+            if (isLoading) return (
+                <div className="load-sub-btn p-4 min-h-9 min-w-20 rounded-[11px] bg-zinc-600"></div>
+            );    
+            if (isSubcribed){
+                return (
+                    <div onClick={() => channelId && appDispatch(unSubcribeChnl({id: channelId})) } className="subcribe-btn py-[4.5px] px-[7px] bg-zinc-800 cursor-pointer rounded-[24px]">
+                        <P className='text-zinc-100 text-sm font-semibold'> Subcribed </P> 
+                    </div>
+                )
+            };
             return (
-                <div onClick={() => {setSubscribed( !subscribed )} } className="subcribe-btn py-[4.5px] px-[7px] bg-zinc-100 cursor-pointer rounded-[24px]">
-                    <P className='text-zinc-800 text-sm font-semibold'> {subscribed ? 'Subscribed': 'Subscribe'} </P> 
+                <div onClick={() => channelId && appDispatch(subcribreChnl({id: channelId})) } className="subcribe-btn py-[4.5px] px-[7px] bg-zinc-100 cursor-pointer rounded-[24px]">
+                    <P className='text-zinc-800 text-sm font-semibold'> Subscribe </P> 
                 </div>
-            )
+            );
         };
 
         return (
@@ -146,10 +157,6 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
                 }
             }
         };
-        const handleDownload = () => {
-            alert(`We apologize, but the download feature is currently unavailable. We're actively working on improving our services to bring you new and exciting content. In the meantime, please explore the rest of our offerings. If you have any specific needs or questions, don't hesitate to contact our support team.\n Thank you for your understanding and patience \n - Byimaan`)
-        };
-
         const handleByimaan = () => {
             window.open('https://subhpb.github.io/Portfolio/', '_blank', 'noopener,noreferrer');
         }
@@ -164,14 +171,13 @@ function PublisherChannelAndBtns({className='', xtraCss='', source, isLoading} :
                 onClick: () =>  videoId && appDispatch( videoIsDisLiked ? neutralVideoAction({ "id" : videoId } ) : dislikeVideoAction({ "id" : videoId }))
             },
             {text: 'Share', icon: <FaRegShareSquare />, onClick: handleShare},
-            {text: 'Download', icon: <FaDownload />, onClick: handleDownload},
             {text: 'Byimaan', icon: <FaReact />, onClick: handleByimaan }
         ];
         const videoButtons: React.ReactElement[] = videoBtns.map( (data: videoBtnTS, index: number) => <VideoBtn key={index} text={data?.text} icon={data?.icon} onClick={data?.onClick} /> );
         return (
             <div className="pub-btns min-h-4 w-full lg:w-[62%]">
                 <Genres className='flex p-2 gap-2 flex-shrink-0 w-full overflow-x-scroll scrollbar-hide'
-                    source={ isLoading ? Array(3).fill('N/A') : videoButtons}
+                    source={ isLoading ? Array(1).fill('N/A') : videoButtons}
                     loading={isLoading}
                 />
             </div>
@@ -209,7 +215,7 @@ function VideoComments({className='', xtraCss='', isLoading, source}: vidDetailT
     )
 };
 
-function VideoComment({className='', xtraCss='', isLoading, source}: vidDetailTS): React.ReactElement {
+function VideoComment({className='', xtraCss='', isLoading}: vidDetailTS): React.ReactElement {
 
     if (isLoading) return (
         <div className={`load-vid-comment w-full min-h-5 flex justify-around items-center mt-2 ${className} ${xtraCss}`}>
