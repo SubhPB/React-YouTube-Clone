@@ -3,6 +3,7 @@
 import { createSlice, PayloadAction, Slice, CaseReducerActions, SliceCaseReducers, Reducer } from "@reduxjs/toolkit";
 import { AppThunk } from "../app/store";
 import { fetchData } from "../../src-utils/api";
+import {AxiosError} from "axios";
 
 interface State<T> {
     data: T | null;
@@ -69,8 +70,8 @@ export default class CustomSlice<T>{
                     dispatch( fetchDataSuccess( response ) );
                 } 
             ).catch (
-                (err: any) => {
-                    dispatch( fetchDataError(`${err}`) )
+                (err: AxiosError) => {
+                    dispatch( fetchDataError(err) )
                     console.log("Thunk gave an error ", err)
                 }
             ).finally (
