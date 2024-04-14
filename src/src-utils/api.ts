@@ -1,6 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {obj, AsyncFunc} from './dataTypes';
 
 const BASE_URL = "https://youtube138.p.rapidapi.com";
@@ -26,11 +26,11 @@ export const fetchData: AsyncFunc<[string]> = async(url) => {
       return data;
 
     } catch (error){
-
+      const axiosErr = error as AxiosError 
       console.log("The request made on " + `'${BASE_URL}/${url}'` + " got rejected.");
       console.log(error);
-      return Promise.reject(`${error}`);
-      
+      return Promise.reject(axiosErr);
+
     }
     
 };
