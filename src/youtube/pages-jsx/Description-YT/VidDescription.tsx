@@ -18,9 +18,7 @@ interface vidDetailTS {
     isSmall ?: boolean
 };
 
-const [ data, loading ] : [VideoDetailApiResponse, boolean] = [VideoDetailsDemo as VideoDetailApiResponse, false]
-
-const VidDescription: React.FC<vidDetailTS>  = ({className='', xtraCss='', source=data, isLoading=loading}) => {
+const VidDescription: React.FC<vidDetailTS>  = ({className='', xtraCss='', source, isLoading}) => {
    const navigate = useNavigate();
 
   return (
