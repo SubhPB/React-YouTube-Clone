@@ -1,7 +1,7 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 import { create } from "domain";
 import { PayloadAction, createAction } from "@reduxjs/toolkit";
-import { ApiErrorTs } from "./slice";
+import { ApiErrorTs, ApiErrorState } from "./slice";
 
 interface TokenTs {
     key : string
@@ -9,21 +9,21 @@ interface TokenTs {
 
 // export const raiseApiErrorAction = createAction<ApiErrorTs>('raise-api-error');
 
-function raiseApiErrorAction( state: ApiErrorTs | null , action: PayloadAction<ApiErrorTs> ){
+function raiseApiErrorAction( state: ApiErrorState , action: PayloadAction<ApiErrorTs> ){
 
     // if the error already occured then there is no need to update it...
-    const noError = state === null;
-    if (noError) state = action.payload;
+    const noError = state.state === null;
+    if (noError) state.state = action.payload;
 };
 
-function removeApiErrorAction(state: ApiErrorTs | null , action: PayloadAction){
-    if (state) state = null;
+function removeApiErrorAction(state: ApiErrorState , action: PayloadAction){
+    if (state.state) state.state = null;
 };
 
-function addExpireTokenAction(state: ApiErrorTs | null, action: PayloadAction<TokenTs>){
+function addExpireTokenAction(state: ApiErrorState, action: PayloadAction<TokenTs>){
     const token = action.payload.key;
-    if (state){
-        !state.expiredKeys.includes(token) && state.expiredKeys.push(token)
+    if (state.state){
+        !state.state.expiredKeys.includes(token) && state.state.expiredKeys.push(token)
     };
 };
 
