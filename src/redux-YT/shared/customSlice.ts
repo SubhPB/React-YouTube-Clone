@@ -4,6 +4,9 @@ import { createSlice, PayloadAction, Slice, CaseReducerActions, SliceCaseReducer
 import { AppThunk } from "../app/store";
 import { fetchData } from "../../src-utils/api";
 import {AxiosError} from "axios";
+import { ApiErrorTs } from "../features/error/slice";
+import { raiseApiErrorAction } from "../features/error/slice";
+
 
 interface State<T> {
     data: T | null;
@@ -71,8 +74,14 @@ export default class CustomSlice<T>{
                 } 
             ).catch (
                 (err: AxiosError) => {
-                    dispatch( fetchDataError(err) )
-                    console.log("Thunk gave an error ", err)
+                    dispatch( fetchDataError(err?.message ?? 'error-occured') );
+                    const expiredKey:string | undefined  = err.response?.headers?.['X-RapidAPI-Key']  ;
+                    const axiosErr: ApiErrorTs = {
+                        statusCode: err.response?.status ??  429,
+                        expiredKeys : [expiredKey ?? 'not-found'],
+                        error : err.message
+                    };
+                    dispatch(raiseApiErrorAction(axiosErr));
                 }
             ).finally (
                 () => {console.log('thunk has completed its task to fetch data!')}
@@ -80,5 +89,5 @@ export default class CustomSlice<T>{
         }
 
     };
-}
+};
 
