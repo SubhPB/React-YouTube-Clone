@@ -1,6 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import {  PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {  createSlice } from "@reduxjs/toolkit";
 import { apiErrorActions } from "./action";
 
 export interface ApiErrorTs {
@@ -9,7 +9,13 @@ export interface ApiErrorTs {
     error ?: string,
 };
 
-const initialState : (ApiErrorTs | null) = null;
+export interface ApiErrorState {
+    state: ApiErrorTs | null;
+}
+
+const initialState : ApiErrorState = {
+    state: null
+};
 
 export const ApiErrorSlice = createSlice({
     name: 'api-error',
@@ -18,4 +24,4 @@ export const ApiErrorSlice = createSlice({
 });
 
 export default ApiErrorSlice.reducer;
-export const { removeApiErrorAction, addExpireTokenAction } = ApiErrorSlice.actions;
+export const { removeApiErrorAction, addExpireTokenAction, raiseApiErrorAction } = ApiErrorSlice.actions;
