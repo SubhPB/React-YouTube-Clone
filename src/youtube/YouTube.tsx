@@ -22,6 +22,7 @@ function YouTube() {
 
   console.log("Api-error ",apiError);
   useEffect( function didUpdate() {
+    
     if (apiError) navigate('/api-error');
   }, [apiError]);
 
@@ -37,7 +38,7 @@ function YouTube() {
             <Route path='/watch/:videoId/*' element={<Watch callBackFunc={setRenderSideBar} />}/>
             <Route path='/channel/:channelId/*' element={<Channel /> } />
             <Route path='/user/*' element={<UserYT />}/>
-            <Route path='/api-error' element={<ApiError />}/>
+            {apiError && <Route path='/api-error' element={<ApiError />}/>}
             <Route path='*' element={<> -N/A- not found ...</>} />
           </Routes>
 
