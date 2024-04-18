@@ -4,8 +4,7 @@ import { createSlice, PayloadAction, Slice, CaseReducerActions, SliceCaseReducer
 import { AppThunk } from "../app/store";
 import { fetchData } from "../../src-utils/api";
 import {AxiosError} from "axios";
-import { ApiErrorTs } from "../features/error/slice";
-import { raiseApiErrorAction } from "../features/error/slice";
+import { append4xxUnvalidTokenAction } from "../features/api/slice";
 
 
 interface State<T> {
@@ -74,14 +73,19 @@ export default class CustomSlice<T>{
                 } 
             ).catch (
                 (err: AxiosError) => {
+
+                    const response = err?.response;
+                    const [statusCode, unValidKey] = [response?.status, response?.config?.headers?.['X-RapidAPI-Key']];
+                    console.log('Check error', err);
                     dispatch( fetchDataError(err?.message ?? 'error-occured') );
-                    const expiredKey:string | undefined  = err.response?.headers?.['X-RapidAPI-Key']  ;
-                    const axiosErr: ApiErrorTs = {
-                        statusCode: err.response?.status ??  429,
-                        expiredKeys : [expiredKey ?? 'not-found'],
-                        error : err.message
+
+                    if ( (statusCode === 429 || statusCode === 403) && unValidKey ){
+                        console.log("append4xxUnvalidTokenAction has been dispatched");
+                        dispatch(append4xxUnvalidTokenAction({
+                            code: statusCode,
+                            token: unValidKey,
+                        }))
                     };
-                    dispatch(raiseApiErrorAction(axiosErr));
                 }
             ).finally (
                 () => {console.log('thunk has completed its task to fetch data!')}
