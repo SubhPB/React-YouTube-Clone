@@ -12,11 +12,12 @@ export interface UserProp {
     xtraCss ?: string,
     children ?: React.ReactNode,
     isLoading ?: boolean,
+    xtraprop ?: any
 }
 
 function UserYT({className='', xtraCss=''}: UserProp) {
   return (
-    <div className={`user-yt flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm ${className} ${xtraCss}`}>
+    <div className={`user-yt flex-grow-[1] max-h-dvh overflow-y-scroll scrollbar-hide lg:scrollbar-cstm ${className} ${xtraCss}`}>
       <Routes>
         <Route path='you/liked-videos' element={<LikedVideos />}/>
         <Route path='you/history' element={<History />} />
