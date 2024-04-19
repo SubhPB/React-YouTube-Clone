@@ -4,29 +4,31 @@ import axios, {AxiosError} from "axios";
 import {obj, AsyncFunc} from './dataTypes';
 
 const BASE_URL = "https://youtube138.p.rapidapi.com";
-const token = localStorage.getItem('token');
-
-const options: obj<obj<string>> = {
-  params: {
-    hl: 'en',
-    gl: 'US'
-  },
-  headers: {
-    'X-RapidAPI-Key': token ?? 'null',
-    'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
-  }
-};
 
 interface AxiosErr extends AxiosError {
   retry ?: boolean;
 };
 
-export const fetchData: AsyncFunc<[string]> = async(url) : Promise<any> => {
+type FetchPropType = string | null
+
+export const fetchData: AsyncFunc<[FetchPropType[]]> = async([url, token]) : Promise<any> => {
     // Imp: async func always returns a promise...
 
     try {
       
-      if (!token) return Promise.reject(new Error('Token is missing, cannot make an api without key.'));
+      if (!token || !url) return Promise.reject(new Error(" ApiCall can't be make without target-url and api-key."));
+
+
+      const options: obj<obj<string>> = {
+        params: {
+          hl: 'en',
+          gl: 'US'
+        },
+        headers: {
+          'X-RapidAPI-Key': token,
+          'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
+        }
+      };
 
       const {data} = await axios.get(`${BASE_URL}/${url}`, options);
       return data;
@@ -48,25 +50,25 @@ export const fetchData: AsyncFunc<[string]> = async(url) : Promise<any> => {
     
 };
 
-async function handleRateLimiting(error: AxiosErr) : Promise<any> {
+// async function handleRateLimiting(error: AxiosErr) : Promise<any> {
 
-  if (!token) return Promise.reject(error);
+//   if (!token) return Promise.reject(error);
 
-  try {
-    const config = {
-      ...error.config,
-      headers: {
-        ...error.config?.headers,
-        'X-RapidAPI-Key': token
-      }
-    };
-    error.retry = true;
-    const {data} = await axios(config);
-    return data;
+//   try {
+//     const config = {
+//       ...error.config,
+//       headers: {
+//         ...error.config?.headers,
+//         'X-RapidAPI-Key': token
+//       }
+//     };
+//     error.retry = true;
+//     const {data} = await axios(config);
+//     return data;
 
-  } catch (retryErr) {
-    return Promise.reject(retryErr);
-  }
-}
+//   } catch (retryErr) {
+//     return Promise.reject(retryErr);
+//   }
+// }
 
 
