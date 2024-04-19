@@ -6,7 +6,6 @@ import { fetchData } from "../../src-utils/api";
 import {AxiosError} from "axios";
 import { append4xxUnvalidTokenAction } from "../features/api/slice";
 
-
 interface State<T> {
     data: T | null;
     error: string | null;
@@ -65,8 +64,9 @@ export default class CustomSlice<T>{
 
         return async function thunkCallback( dispatch, getState){
             dispatch( fetchApiStart('') );
+            const currToken = getState().api.token;
 
-            fetchData(url).then(
+            fetchData([url, currToken]).then(
                 (response: T) => {
                     console.log('Data has been successfully fetched in thunk', response)
                     dispatch( fetchDataSuccess( response ) );
