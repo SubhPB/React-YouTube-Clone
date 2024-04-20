@@ -6,7 +6,6 @@ import { ApiActions } from "./actions";
 export interface TokensTs {
     tooManyReqs: string[],
     forbidden: string[],
-    '4XX': string[],
     okay: string[]
 };
 
@@ -15,15 +14,14 @@ export interface ApiSliceTs {
    token : string | null, 
 };
 
-const defaultToken = process.env.REACT_APP_UTUBE_API_KEY!;
+const defaultTokens = ['994159bf3cmshcb58d8c5a6c227ap18e210jsn4ea1fc9264b4', process.env.REACT_APP_UTUBE_API_KEY! ];
 const otherStoredToken = localStorage.getItem('token');
-const validTokens = ( otherStoredToken === defaultToken || !otherStoredToken) ? [defaultToken] : [otherStoredToken, defaultToken]
+const validTokens = ( defaultTokens.includes(otherStoredToken ?? 'unvalid') || !otherStoredToken) ? defaultTokens : [otherStoredToken, ...defaultTokens]
 
 const initialState: ApiSliceTs = {
     tokens: {
         tooManyReqs: [], 
         forbidden: [],
-        '4XX': [], 
         okay: validTokens,
     },
     token: validTokens[0],
