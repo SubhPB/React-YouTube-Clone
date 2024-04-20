@@ -13,12 +13,12 @@ function VideoDisplay({className='', xtraCss='', source, isLoading=false }: vidC
   return  <>{
       videoId ?
       <div className={`vid-display relative ${className} ${xtraCss} `}>
-        {/* <ReactPlayer 
+        <ReactPlayer 
         url={`https://www.youtube.com/watch?v=${videoId}`}
         className={'absolute top-0 left-0'}
         width={'100%'} height={'100%'} playing={false}
         controls={true} 
-        /> */}
+        />
       </div> : <></>
     } </>
   
