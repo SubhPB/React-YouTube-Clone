@@ -14,6 +14,7 @@ export interface CmnProps<srcT> {
     callBackFunc ?: Function,
     url ?: string,
     handleClick ?: Function,
+    xtraProp ?: any,
 
     // callBackFunc for componentDidMount to be used in useEffect if needed...
     componentDidMount ?: Function,
