@@ -2,33 +2,29 @@
 
 import React, { useEffect } from 'react';
 import FlexContainer from '../assists-jsx/FlexContainer';
-import { ApiResponse } from '../assists-jsx/apiInterfaces';
 import { useNavigate, useParams } from 'react-router-dom';
 import MiniHeader from '../components-jsx/MiniHeader';
 import { Genres } from '../components-jsx/MiniHeader';
-import searchDemoData from '../../youtube/assists-jsx/searchDemoData.json';
 import { VideoCardYT } from '../components-jsx/VideoCardYT.tsx/VideoCardYT';
 import { homeStateSelector } from '../../redux-YT/features/home/homeSelectors';
 import { fetchHomeDataAction } from '../../redux-YT/features/home/homeSliceActions';
 import { useAppDispatch } from '../../redux-YT/app/store';
 import { useSelector } from 'react-redux';
 
-function BodyYT() {
+interface CompPropTs {
+  xtraProp ?: any;
+}
+
+function BodyYT({xtraProp = ''}: CompPropTs) {
 
   const {q} = useParams();
-  
-  // const _data: ApiResponse = searchDemoData as ApiResponse;
-
-  // const [data, error, isLoading] = [ _data , '', false ]
-  // const { data , error, isLoading } = useFetch<ApiResponse>( !q ? 'home/' : `search/?q=${q}`);
-  
   /*  --- Redux + Thunk ---  */
   const appDispatch = useAppDispatch();
   const { data, error, isLoading } = useSelector( homeStateSelector );
 
   useEffect( function mount(){
     if (q || !data) appDispatch(fetchHomeDataAction( { query : q } ));
-  }, [appDispatch, q])
+  }, [appDispatch, q]);
 
   if (isLoading || error || !data){
     return (
