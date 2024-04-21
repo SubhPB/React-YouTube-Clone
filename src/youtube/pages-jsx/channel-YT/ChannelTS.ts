@@ -59,7 +59,8 @@ export interface ChnlProp<SRC> {
   isLoading ?: boolean,
   callBackFunc ?: Function,
   ChnlData ?: Data | undefined,
-  query ?: string |undefined
+  query ?: string |undefined,
+  xtraProp ?: any,
 };
   
 export const data: Data = {
