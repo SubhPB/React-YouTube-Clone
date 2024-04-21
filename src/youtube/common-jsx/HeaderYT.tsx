@@ -80,6 +80,10 @@ export const SearchBar:React.FC<{xtraCss ?: string, inputCss?: string}> = ({xtra
     }
   };
 
+  const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
+    e.key === 'Enter' && handleSubmit();
+  }
+
   return (
     <div className={`search-bar h-full min-h-9 items-center rounded-2xl ${xtraCss}`}>
 
@@ -87,7 +91,7 @@ export const SearchBar:React.FC<{xtraCss ?: string, inputCss?: string}> = ({xtra
         <IoSearch onClick={handleSubmit} className='h-6 min-w-6 font-[200] '/>    
       </div> 
 
-      <input type="text" placeholder='Search'
+      <input  onKeyDown={e => handleKeyDown} type="text" placeholder='Search'
         className={'outline-none px-2 border-stone-900 min-h-full rounded-l-xl  bg-zinc-100 ' + inputCss}
         value={query} onChange={(i) => setQuery(i.currentTarget.value)}
       />
