@@ -47,7 +47,7 @@ function Channel({className='', xtraCss='',}: ChnlProp<null>): ReactElement {
                 console.log('Failed to inject channel data in history. because channelDetails is null!')
             }
         };
-    }, [appDispatch, channelId]);
+    }, [appDispatch, channelId, channelDetails]);
 
     return (
         <div className={`flex-grow-[1] max-h-dvh overflow-y-scroll lg:scrollbar-cstm p-2 ${className} ${xtraCss}`}>
