@@ -28,12 +28,12 @@ function Subcriptions({className='',xtraCss='' }:UserProp) {
                 noData ? <NoYouPageData text='You Have Not Subcribed Any Channel' /> 
                 : <FlexContainer className={' flex flex-col w-full h-full flex-shrink-0 gap-2'}  xtraCss={`pl-6`} >
                     {
-                        subcribedChannels.map( (chnlData, ind) => <ChannelCard src={chnlData} /> )
+                        subcribedChannels.map( (chnlData, ind) => <ChannelCard key={ind} src={chnlData} /> )
                     }
-                    <p> ALL History of Channels </p>
+                    <p className="my-1 font-semibold"> History of Channels that you visited. </p>
                     {
                     
-                        allChannels.map( (chnlData, ind) => <ChannelCard src={chnlData} /> )
+                        allChannels.map( (chnlData, ind) => <ChannelCard key={ind} src={chnlData} /> )
                     
                     }
                 </FlexContainer>
