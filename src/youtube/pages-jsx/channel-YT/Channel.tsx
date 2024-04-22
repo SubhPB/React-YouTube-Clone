@@ -2,8 +2,6 @@
 
 import React, { ReactElement, useEffect, useState } from 'react';
 import { ChnlProp } from './ChannelTS';
-import { Data } from './ChannelTS';
-import { data } from './ChannelTS';
 import MemoChannelHeader from './components/ChannelHeader';
 import { ChnlHome } from './components/ChannelHome';
 import { ChnlCommunity } from './components/ChannelCommunity';
@@ -15,7 +13,6 @@ import { useAppDispatch } from '../../../redux-YT/app/store';
 import { useSelector } from 'react-redux';
 import { fetchChnlDetailsAction } from '../../../redux-YT/features/channel/chnlDetails/detailAction';
 import { chnlDetailsStateSelector } from '../../../redux-YT/features/channel/chnlDetails/detailSelectors';
-import { selectSubcribedChannelsId } from '../../../redux-YT/features/channel/subcriptions/selectors';
 import { appendChannelInHistory } from '../../../redux-YT/features/history/slice';
 
 

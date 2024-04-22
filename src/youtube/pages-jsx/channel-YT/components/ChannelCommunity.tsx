@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import { ChnlProp } from '../ChannelTS';
 import { useParams } from 'react-router-dom';
 import { demoCommunityData } from '../ChannelComm';
-import { DataStructure, Content } from '../ChannelComm';
+import { Content } from '../ChannelComm';
 import { Post } from '../ChannelComm';
 import { Img } from '../../../assists-jsx/Assists';
 import Paragraph from '../../Description-YT/Paragraph';
