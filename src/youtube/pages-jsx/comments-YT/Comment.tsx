@@ -6,7 +6,6 @@ import { Comment } from '../../assists-jsx/vidComments';
 import { Img } from '../../assists-jsx/Assists';
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
-import { MdOutlineChat } from "react-icons/md";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from 'react-icons/ai';
 import { intToText } from '../../assists-jsx/funcs';

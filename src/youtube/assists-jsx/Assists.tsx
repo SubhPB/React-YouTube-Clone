@@ -1,7 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
 import React, {ReactNode} from "react";
-import defaultImg from '../../src-static/images/yt-logo-mobile.png';
 import { useState } from "react";
 
 export interface CmnProps<srcT> {

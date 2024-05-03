@@ -1,6 +1,5 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
-import React from 'react'
 import { UserProp } from '../User';
 import FlexContainer from '../../../assists-jsx/FlexContainer';
 import { IoMdArrowRoundBack } from "react-icons/io";

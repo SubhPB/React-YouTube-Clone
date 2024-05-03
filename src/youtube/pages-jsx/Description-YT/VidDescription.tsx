@@ -4,7 +4,7 @@ import { VideoDetailApiResponse } from '../../assists-jsx/videoDetailTs';
 import React from 'react';
 import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from 'react-router-dom';
-import VideoDetailsDemo from '../../assists-jsx/videoDetailDemo.json';
+// import VideoDetailsDemo from '../../assists-jsx/videoDetailDemo.json';
 import Paragraph from './Paragraph';
 import { Img } from '../../assists-jsx/Assists';
 import { intToText } from '../../assists-jsx/funcs';

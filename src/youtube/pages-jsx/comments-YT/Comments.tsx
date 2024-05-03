@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from 'react';
 import { RxCross1 } from 'react-icons/rx';
 import { useNavigate, useParams } from 'react-router-dom';
-import CommentsDemoData from '../../assists-jsx/commentDemo.json';
+//import CommentsDemoData from '../../assists-jsx/commentDemo.json';
 import CommentYT from './Comment';
 import { CommentsSection } from '../../assists-jsx/vidComments';
 import { IoSend } from "react-icons/io5";

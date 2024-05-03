@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import VideoContent from './Cinema';
 import RelatedContent from './RelatedContent';
 import PublisherData from './PublisherData';
-import demoVideoDetail from '../../assists-jsx/videoDetailDemo.json';
+// import demoVideoDetail from '../../assists-jsx/videoDetailDemo.json';
 import { VideoDetailApiResponse } from '../../assists-jsx/videoDetailTs';
 import { Routes, Route } from 'react-router-dom';
 import CommentsYT from '../comments-YT/Comments';

@@ -1,7 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
 
-import React from 'react';
 import { UserProp } from '../User';
 import { YouPageHeader, NoYouPageData } from '../you-page/History';
 import { Data } from '../../channel-YT/ChannelTS';

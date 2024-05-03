@@ -1,7 +1,6 @@
 /* -- BYIMAAN -> THE FUTURE -- */
 
 import { UserProp } from "../User";
-import React from 'react';
 import FlexContainer from "../../../assists-jsx/FlexContainer";
 import { useSelector } from "react-redux";
 import { selectLikedVideos } from "../../../../redux-YT/features/video/targetVideos/targetVidSelectors";

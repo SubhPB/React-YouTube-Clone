@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState} from 'react'
 import { CmnProps } from '../../assists-jsx/Assists';
 import FlexContainer from '../../assists-jsx/FlexContainer';
-import { ApiResponse } from '../../assists-jsx/apiInterfaces';
-import searchDemoData from '../../../youtube/assists-jsx/searchDemoData.json'
+// import { ApiResponse } from '../../assists-jsx/apiInterfaces';
+// import searchDemoData from '../../../youtube/assists-jsx/searchDemoData.json'
 import { VideoCardYT } from '../../components-jsx/VideoCardYT.tsx/VideoCardYT';
 
 // import PublisherData from './PublisherData';

@@ -1,4 +1,4 @@
-import { Avatar, Author, Badge, Video, Content, Thumbnail, Stats } from "./apiInterfaces";
+import {  Content,  } from "./apiInterfaces";
 
 export interface VideoData {
 contents: Content[];
